@@ -9,7 +9,6 @@ import openfl.events.Event;
 import openfl.ui.Keyboard;
 import kalakuh.time4you.gui.*;
 import kalakuh.time4you.game.EGameMode;
-import openfl.filters.GlowFilter;
 
 /**
  * ...
