@@ -8,7 +8,6 @@ import openfl.events.KeyboardEvent;
 import openfl.events.Event;
 import openfl.ui.Keyboard;
 import kalakuh.time4you.gui.*;
-import openfl.filters.GlowFilter;
 
 /**
  * ...
