@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	<!-- NMML reference: https://gist.github.com/1763850 -->
+	
+	<!-- metadata, make sure 'package' is at least 3 segments (ie. com.mycompany.myproject) -->
+	<meta title="Time4You" package="kalakuh.time4you.Time4You" version="1.0.0" company="Solarfly Studios" />
+	
+	<!-- output -->
+	<app main="kalakuh.time4you.Main" file="Time4You" path="bin" />
+	
+	<window background="#FFFFFF" fps="60" />
+	<window width="640" height="480" unless="mobile" />
+	<window orientation="landscape" vsync="false" antialiasing="0" if="cpp" />
+	
+	<!-- classpath, haxe libs -->
+	<source path="src" />
+	<haxelib name="openfl" />
+	<haxelib name="actuate" />
+	
+	<!-- assets -->
+	<icon path="assets/logo.png" />
+	<assets path="assets/img" rename="img" />
+	<assets path="assets/sound" rename="sound" />
+	
+	<!-- optimize output
+	<haxeflag name="-dce full" /> -->
+	
+</project>
