@@ -1,0 +1,34 @@
+/*Body*/
+
+body {
+  background : #2C3E50;
+  background : rgba(44, 62, 80, 1);
+}
+
+
+
+h1 {
+    position: absolute;
+    text-align: center;
+    top: 80%;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+    font-size : 41px;
+    overflow: hidden;
+    -webkit-transition: 0.3s all;
+    transition: 0.3s all;
+    }
+    
+    h1:hover {
+-webkit-transform: scale(1.0f5,1.05);
+    -ms-transform: scale(1.05,1.05);
+    transform: scale(1.05,1.05);
+}
+
+span.span1 {
+    color : #2980BA;
+    color : rgb(41, 128, 186);
+    overflow: hidden;
+    -webkit-transition: 0.3s all;
+    transition: 0.3s all;
+}
