@@ -12,6 +12,7 @@ import openfl.Assets;
 import openfl.events.Event;
 import kalakuh.time4you.menus.*;
 import kalakuh.time4you.gui.*;
+import openfl.media.Sound;
 #if flash
 	import kalakuh.time4you.gui.GameContextMenu;
 #end
@@ -30,6 +31,7 @@ class Main extends Sprite
 	private var mSelection : ModeSelection;
 	private var game : GameManager;
 	private var gOver : GameOver;
+	private var sound : Sound;
 	
 	#if flash
 		private static var kongregate : KongregateAPI;
@@ -66,6 +68,10 @@ class Main extends Sprite
 		
 		game = new GameManager();
 		addChild(game);
+		
+		sound = Assets.getSound("sound/DarknessOfForever.mp3");
+		// i hope 9999 repeats is enough?
+		sound.play(0.0, 9999);
 		
 		#if flash
 			contextMenu = GameContextMenu.getContextMenu();
