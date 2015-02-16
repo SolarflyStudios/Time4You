@@ -4,9 +4,15 @@
   </head>
   <body>
     <center>
-      </center><div margin-top="100px" height="500px" width="660px" border-radius="5px" border-style="outset">
-        <iframe width="640" height="480" src="assets\Time4YouBeta.swf" frameborder="0" margin="10px"></iframe>
+      <div margin-top="100px" height="500px" width="660px" border-radius="5px" border-style="outset">
+        <iframe id="swf" width="640" height="480" src="assets\Time4YouBeta.swf" frameborder="0" margin="10px"></iframe>
       </div>
     </center>
+    
+  <script>
+    window.onload = function() {
+      document.getElementById("swf").focus();
+    };
+  </script>
   </body>
 </html>
