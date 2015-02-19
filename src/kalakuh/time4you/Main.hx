@@ -13,6 +13,7 @@ import openfl.events.Event;
 import kalakuh.time4you.menus.*;
 import kalakuh.time4you.gui.*;
 import openfl.media.Sound;
+
 #if flash
 	import kalakuh.time4you.gui.GameContextMenu;
 #end
@@ -54,56 +55,130 @@ class Main extends Sprite
 		mainMenu = new MainMenu();
 		addChild(mainMenu);
 		
-		credits = new Credits();
-		addChild(credits);
-		
-		help = new Help();
-		addChild(help);
-		
-		mSelection = new ModeSelection();
-		addChild(mSelection);
-		
-		gOver = new GameOver();
-		addChild(gOver);
-		
-		game = new GameManager();
-		addChild(game);
-		
 		sound = Assets.getSound("sound/DarknessOfForever.mp3");
-		// i hope 9999 repeats is enough?
-		sound.play(0.0, 9999);
+		// Is 9999 repeats is enough?
+		sound.play(0, 9999);
 		
 		#if flash
 			contextMenu = GameContextMenu.getContextMenu();
 			kongregate = new KongregateAPI();
 		#end
+		
+		addEventListener(Event.ENTER_FRAME, update);
+	}
+	
+	private function update (e : Event) : Void {
+		// Obviously I can't use functional programmin, because if I write
+		// param = null;
+		// the actual object wouldn't be null after that... -_-
+		// well, let's just write the same code 6 times...
+		
+		// main menu
+		if (mainMenu != null) {
+			if (mainMenu.isDestroyable()) {
+				if (mainMenu.alpha < 0.1) {
+					mainMenu.onDestroy();
+					removeChild(mainMenu);
+					mainMenu = null;
+				}
+			}
+		}
+		
+		// credits
+		if (credits != null) {
+			if (credits.isDestroyable()) {
+				if (credits.alpha < 0.1) {
+					credits.onDestroy();
+					removeChild(credits);
+					credits = null;
+				}
+			}
+		}
+		
+		// help
+		if (help != null) {
+			if (help.isDestroyable()) {
+				if (help.alpha < 0.1) {
+					help.onDestroy();
+					removeChild(help);
+					help = null;
+				}
+			}
+		}
+		
+		// mode selection
+		if (mSelection != null) {
+			if (mSelection.isDestroyable()) {
+				if (mSelection.alpha < 0.1) {
+					mSelection.onDestroy();
+					removeChild(mSelection);
+					mSelection = null;
+				}
+			}
+		}
+		
+		// game over
+		if (gOver != null) {
+			if (gOver.isDestroyable()) {
+				if (gOver.alpha < 0.1) {
+					gOver.onDestroy();
+					removeChild(gOver);
+					gOver = null;
+				}
+			}
+		}
+		
+		// game
+		if (game != null) {
+			if (game.isDestroyable()) {
+				if (game.alpha < 0.1) {
+					game.onDestroy();
+					removeChild(game);
+					game = null;
+				}
+			}
+		}
 	}
 	
 	public function openMenu (menu : EScreen) : Void {
 		switch (menu) {
 			case EScreen.S_MainMenu:
-				mainMenu.setTargetAlpha(1);
+				mainMenu = new MainMenu();
+				mainMenu.alpha = 0;
+				addChild(mainMenu);
 			case EScreen.S_Credits:
+				credits = new Credits();
 				credits.setTargetAlpha(1);
+				addChild(credits);
 			case EScreen.S_Help:
+				help = new Help();
 				help.setTargetAlpha(1);
+				addChild(help);
 			case EScreen.S_ModeSelection:
+				mSelection = new ModeSelection();
 				mSelection.setTargetAlpha(1);
+				addChild(mSelection);
 			default:
 		}
 	}
 	
 	public function gameOver (score : Float, gamemode : EGameMode) : Void {
+		gOver = new GameOver();
+		addChild(gOver);
 		gOver.setTargetAlpha(1);
 		gOver.setScore(score, gamemode);
 	}
 	
 	public function startGame (gamemode : EGameMode) : Void {
+		game = new GameManager();
+		addChild(game);
 		game.setTargetAlpha(1);
 		game.start(gamemode);
 	}
 	
 	public function restart () : Void {
+		game = new GameManager();
+		addChild(game);
 		game.setTargetAlpha(1);
 		game.start();
 	}
@@ -136,7 +211,9 @@ class Main extends Sprite
 		Lib.current.addChild(new Main());
 	}
 	
+	#if flash
 	public static function getAPI () : KongregateAPI {
 		return kongregate;
 	}
+	#end
 }

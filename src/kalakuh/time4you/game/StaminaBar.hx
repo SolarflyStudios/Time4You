@@ -41,28 +41,30 @@ class StaminaBar extends Sprite
 	}
 	
 	private function update (e : Event) : Void {
-		bar.graphics.clear();
-		
-		// background
-		bar.graphics.beginFill(0x000000);
-		bar.graphics.drawRoundRect(28, 28, 24, stage.stageHeight - 56, 24, 24);
-		bar.graphics.endFill();
-		
-		bar.graphics.beginFill(0x669999);
-		bar.graphics.drawRoundRect(30, 30, 20, stage.stageHeight - 60, 20, 20);
-		bar.graphics.endFill();
-		
-		// gradient
-		bar.graphics.beginGradientFill(GradientType.LINEAR, [0xFFEE00, 0xE68A00], [1, 1], [0, 0xFF], mat);
-		bar.graphics.drawRoundRect(30, 30 + (stage.stageHeight - 60 - (stage.stageHeight - 60) * stamina / MAX_STAMINA), 20, (stage.stageHeight - 60) * stamina / MAX_STAMINA, 20, 20);
-		bar.graphics.endFill();
-		
-		// alpha
-		alpha += (targetAlpha - alpha) / 20;
-		
-		if (increaseRepeats > 0) {
-			increaseRepeats--;
-			setStamina(getStamina() + 1);
+		if (stage != null) {
+			bar.graphics.clear();
+			
+			// background
+			bar.graphics.beginFill(0x000000);
+			bar.graphics.drawRoundRect(28, 28, 24, stage.stageHeight - 56, 24, 24);
+			bar.graphics.endFill();
+			
+			bar.graphics.beginFill(0x669999);
+			bar.graphics.drawRoundRect(30, 30, 20, stage.stageHeight - 60, 20, 20);
+			bar.graphics.endFill();
+			
+			// gradient
+			bar.graphics.beginGradientFill(GradientType.LINEAR, [0xFFEE00, 0xE68A00], [1, 1], [0, 0xFF], mat);
+			bar.graphics.drawRoundRect(30, 30 + (stage.stageHeight - 60 - (stage.stageHeight - 60) * stamina / MAX_STAMINA), 20, (stage.stageHeight - 60) * stamina / MAX_STAMINA, 20, 20);
+			bar.graphics.endFill();
+			
+			// alpha
+			alpha += (targetAlpha - alpha) / 20;
+			
+			if (increaseRepeats > 0) {
+				increaseRepeats--;
+				setStamina(getStamina() + 1);
+			}
 		}
 	}
 	

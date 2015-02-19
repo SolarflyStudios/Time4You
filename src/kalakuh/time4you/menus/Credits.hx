@@ -6,6 +6,7 @@ import openfl.events.KeyboardEvent;
 import openfl.events.Event;
 import openfl.ui.Keyboard;
 import kalakuh.time4you.gui.*;
+import openfl.events.MouseEvent;
 
 /**
  * ...
@@ -29,6 +30,7 @@ class Credits extends Screen
 		addChild(creds);
 		
 		stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+		addEventListener(MouseEvent.CLICK, onClick);
 	}
 	
 	private function onKeyDown (e : KeyboardEvent) {
@@ -37,7 +39,23 @@ class Credits extends Screen
 				var main : Main = cast parent;
 				super.setTargetAlpha(0);
 				main.openMenu(EScreen.S_MainMenu);
+				super.setToBeDestroyed();
 			}
 		}
+	}
+	
+	private function onClick (e : MouseEvent) : Void {
+		var main : Main = cast parent;
+		super.setTargetAlpha(0);
+		main.openMenu(EScreen.S_MainMenu);
+		super.setToBeDestroyed();
+	}
+	
+	override public function onDestroy () {
+		stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+		removeEventListener(MouseEvent.CLICK, onClick);
+		
+		removeChild(creds);
+		creds = null;
 	}
 }

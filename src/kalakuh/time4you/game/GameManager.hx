@@ -44,12 +44,14 @@ class GameManager extends Screen
 	
 	private var glow : SlowMotionGlow;
 	
-	private var gamemode : EGameMode = EGameMode.Classic;
+	private static var gamemode : EGameMode = EGameMode.Classic;
 	
 	private var slowmoSound : Sound;
 	private var coinSound : Sound;
 	
 	private var alive : Bool = false;
+	
+	private var scoreNumb : Float = 0;
 	
 	public function new() 
 	{
@@ -66,15 +68,6 @@ class GameManager extends Screen
 		
 		coin = new Coin();
 		addChild(coin);
-		
-		score = new Counter();
-		addChild(score);
-		
-		rush = new Counter();
-		addChild(rush);
-		rushTimer = new Timer(1000, 30);
-		rushTimer.addEventListener(TimerEvent.TIMER, updateTimer);
-		rushTimer.addEventListener(TimerEvent.TIMER_COMPLETE, timerComplete);
 		
 		enemies = new Array();
 		
@@ -111,9 +104,6 @@ class GameManager extends Screen
 	}
 	
 	public function start (gm : EGameMode = null) : Void {
-		score.reset();
-		rush.reset();
-		
 		player.x = stage.stageWidth / 2;
 		player.y = stage.stageHeight / 2;
 		player.resetSpeed();
@@ -126,34 +116,20 @@ class GameManager extends Screen
 		}
 		
 		if (gm != null) {
-			if (gm == EGameMode.Classic) {
-				rush.alpha = 0;
-				rush.setTargetAlpha(0);
-			} else {
-				rush.alpha = 1;
-				rush.setTargetAlpha(1);
-			}
-			
-			if (gm == EGameMode.Rush) {
-				rush.setValue(30);
-				rushTimer.reset();
-				rushTimer.start();
-			}
-			
-			if (gm == EGameMode.Classic) {
-				score.alpha = 1;
-				score.setTargetAlpha(1);
-			} else {
-				score.alpha = 0;
-				score.setTargetAlpha(0);
-			}
 			gamemode = gm;
+		}
+		
+		if (gamemode == EGameMode.Rush) {
+			rush = new Counter();
+			addChild(rush);
+			rush.setValue(30);
+			rushTimer = new Timer(1000, 30);
+			rushTimer.addEventListener(TimerEvent.TIMER, updateTimer);
+			rushTimer.addEventListener(TimerEvent.TIMER_COMPLETE, timerComplete);
+			rushTimer.start();
 		} else {
-			if (gamemode == EGameMode.Rush) {
-				rush.setValue(30);
-				rushTimer.reset();
-				rushTimer.start();
-			}
+			score = new Counter();
+			addChild(score);
 		}
 		
 		coin.newPosition();
@@ -183,11 +159,12 @@ class GameManager extends Screen
 		if (alive) {
 			super.setTargetAlpha(0);
 			var main : Main = cast parent;
-			main.gameOver(score.getValue(), gamemode);
+			main.gameOver(scoreNumb, gamemode);
 			player.setAlive(false);
 			alive = false;
 			deathSound.play();
 			removeEventListener(Event.ENTER_FRAME, update);
+			super.setToBeDestroyed();
 		}
 	}
 	
@@ -216,7 +193,11 @@ class GameManager extends Screen
 		
 		var pSpeed : Float = player.getSpeed();
 		pixelsMoved += pSpeed;
-		score.addScore(pSpeed * (1 + collectedCoins));
+		
+		scoreNumb += pSpeed * (1 + collectedCoins);
+		if (gamemode == EGameMode.Classic) {
+			score.addScore(pSpeed * (1 + collectedCoins));
+		}
 		
 		// slow mo'
 		var slowmo : Bool = false;
@@ -241,9 +222,9 @@ class GameManager extends Screen
 			enemySpawnCounter -= enemySpawnCounter / 40;
 			
 			var enemy : Enemy;
-			if (score.getValue() < 7500) { 
+			if (scoreNumb < 7500) { 
 				enemy = new Enemy(EEnemy.Triangle);
-			} else if (score.getValue() < 25000) {
+			} else if (scoreNumb < 25000) {
 				enemy = new Enemy(Math.random() < 0.66 ? EEnemy.Triangle : EEnemy.Star);
 			} else {
 				enemy = new Enemy(Math.random() < 0.5 ? EEnemy.Triangle : Math.random() < 0.5 ? EEnemy.Pentagon : EEnemy.Star);
@@ -268,13 +249,14 @@ class GameManager extends Screen
 		for (enemy in enemies) {
 			if (enemy.getHitbox().intersects(player.getHitbox())) {
 				super.setTargetAlpha(0);
+				deathSound.play();
+				removeEventListener(Event.ENTER_FRAME, update);
 				var main : Main = cast parent;
-				main.gameOver(score.getValue(), gamemode);
+				main.gameOver(scoreNumb, gamemode);
 				player.setAlive(false);
 				alive = false;
-				deathSound.play();
-				rushTimer.stop();
-				removeEventListener(Event.ENTER_FRAME, update);
+				if (gamemode == EGameMode.Rush) rushTimer.stop();
+				super.setToBeDestroyed();
 			}
 			if (gamemode == EGameMode.Classic && enemy.getHitbox().intersects(score.getHitbox())) {
 				score.setTargetAlpha(0.5);
@@ -326,5 +308,47 @@ class GameManager extends Screen
 		if (player.getHitbox().intersects(stamina.getHitbox())) {
 			stamina.setTargetAlpha(0.5);
 		}
+	}
+	
+    override public function onDestroy () : Void {
+		stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+		stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyUp);
+		
+		if (gamemode == EGameMode.Rush) {
+			rushTimer.removeEventListener(TimerEvent.TIMER, updateTimer);
+			rushTimer.removeEventListener(TimerEvent.TIMER_COMPLETE, timerComplete);
+			rushTimer = null;
+		}
+		
+		removeChild(background);
+		background = null;
+		
+		removeChild(player);
+		player = null;
+		
+		if (gamemode == EGameMode.Classic) {
+			removeChild(score);
+			score = null;
+		} else {
+			removeChild(rush);
+			rush = null;
+		}
+		
+		removeChild(coin);
+		coin = null;
+		
+		if (oldCoin.stage != null) {
+			removeChild(oldCoin);
+			oldCoin = null;
+		}
+		
+		removeChild(stamina);
+		stamina = null;
+		
+		for (enemy in enemies) {
+			removeChild(enemy);
+			enemy = null;
+		}
+		enemies.splice(0, enemies.length);
 	}
 }

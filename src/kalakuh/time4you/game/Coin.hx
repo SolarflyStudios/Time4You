@@ -34,8 +34,8 @@ class Coin extends Sprite {
 	}
 	
 	public function newPosition () : Void {
-		this.x = coin.width + (Math.random() * (stage.stageWidth - 2 * coin.width));
-		this.y = coin.height + (Math.random() * (stage.stageHeight - 2 * coin.height));
+		this.x = coin.width * 3 + (Math.random() * (stage.stageWidth - 6 * coin.width));
+		this.y = coin.height * 3 + (Math.random() * (stage.stageHeight - 6 * coin.height));
 	}
 	
 	public function getCoin () : Bitmap {

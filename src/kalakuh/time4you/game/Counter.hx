@@ -23,12 +23,12 @@ class Counter extends Sprite {
 	private var number8 : BitmapData;
 	private var number9 : BitmapData;
 	
-	private var numbers : Array<Bitmap>;
+	private var numbers : Array<Bitmap> = new Array();
 	private var numberContainer : Sprite;
 	
 	private var targetAlpha : Float = 1;
 	
-	private var value : Float;
+	private var value : Float = 0;
 	
 	public function new() 
 	{
@@ -49,8 +49,6 @@ class Counter extends Sprite {
 		number7 = Assets.getBitmapData("img/Numbers/7.png");
 		number8 = Assets.getBitmapData("img/Numbers/8.png");
 		number9 = Assets.getBitmapData("img/Numbers/9.png");
-		
-		numbers = new Array();
 		
 		numberContainer = new Sprite();
 		addChild(numberContainer);

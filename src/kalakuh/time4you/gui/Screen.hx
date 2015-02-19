@@ -10,6 +10,7 @@ import openfl.events.Event;
 class Screen extends Sprite
 {
 	private var targetAlpha : Float;
+	private var canDestroy : Bool = false;
 	
 	public function new(a : Float) 
 	{
@@ -36,4 +37,14 @@ class Screen extends Sprite
 	private function isVisible () : Bool {
 		return alpha >= 0.9;
 	}
+	
+	private function setToBeDestroyed () : Void {
+		canDestroy = true;
+	}
+	
+	public function isDestroyable () : Bool {
+		return canDestroy;
+	}
+	
+	public function onDestroy () : Void { trace("ALERT: onDestroy() not implemented yet!"); }
 }

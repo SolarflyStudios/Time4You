@@ -6,8 +6,10 @@ import openfl.display.Bitmap;
 import openfl.Assets;
 import openfl.events.KeyboardEvent;
 import openfl.events.Event;
+import openfl.geom.Point;
 import openfl.ui.Keyboard;
 import kalakuh.time4you.gui.*;
+import openfl.events.MouseEvent;
 
 /**
  * ...
@@ -22,7 +24,7 @@ class MainMenu extends Screen
 	
 	private var background : Bitmap;
 	
-	private var selectionIndex : Int = 0;
+	private static var selectionIndex : Int = 0;
 	
 	public function new() 
 	{
@@ -35,9 +37,21 @@ class MainMenu extends Screen
 		
 		background = new Bitmap(Assets.getBitmapData("img/Menu/MenuBackground.png"));
 		
-		play = new Bitmap(Assets.getBitmapData("img/Menu/PlayButtonHover.png"));
-		help = new Bitmap(Assets.getBitmapData("img/Menu/HelpButton.png"));
-		credits = new Bitmap(Assets.getBitmapData("img/Menu/CreditsButton.png"));
+		switch (selectionIndex) {
+			case 0:
+				play = new Bitmap(Assets.getBitmapData("img/Menu/PlayButtonHover.png"));
+				help = new Bitmap(Assets.getBitmapData("img/Menu/HelpButton.png"));
+				credits = new Bitmap(Assets.getBitmapData("img/Menu/CreditsButton.png"));
+			case 1:
+				play = new Bitmap(Assets.getBitmapData("img/Menu/PlayButton.png"));
+				help = new Bitmap(Assets.getBitmapData("img/Menu/HelpButtonHover.png"));
+				credits = new Bitmap(Assets.getBitmapData("img/Menu/CreditsButton.png"));
+			case 2:
+				play = new Bitmap(Assets.getBitmapData("img/Menu/PlayButton.png"));
+				help = new Bitmap(Assets.getBitmapData("img/Menu/HelpButton.png"));
+				credits = new Bitmap(Assets.getBitmapData("img/Menu/CreditsButtonHover.png"));
+			default:
+		}
 		
 		buttonContainer = new Sprite();
 		
@@ -55,7 +69,74 @@ class MainMenu extends Screen
 		center(help);
 		center(credits);
 		
+		addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
+		addEventListener(MouseEvent.CLICK, onClick);
 		stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+	}
+	
+	private function onMouseMove (e : MouseEvent) : Void {
+		var index = selectionIndex;
+		if (mouseX >= 202 && mouseX <= 450) {
+			if (mouseY >= 137 && mouseY <= 215) {
+				selectionIndex = 0;
+			}
+		} 
+		if (mouseX >= 255 && mouseX <= 406) {
+			if (mouseY >= 245 && mouseY <= 292) {
+				selectionIndex = 1;
+			}
+		}
+		if (mouseX >= 187 && mouseX <= 461) {
+			if (mouseY >= 307 && mouseY <= 353) {
+				selectionIndex = 2;
+			}
+		}
+		
+		if (index != selectionIndex) {
+			switch (selectionIndex) {
+				case 0:
+					play.bitmapData = Assets.getBitmapData("img/Menu/PlayButtonHover.png");
+					help.bitmapData = Assets.getBitmapData("img/Menu/HelpButton.png");
+					credits.bitmapData = Assets.getBitmapData("img/Menu/CreditsButton.png");
+				case 1:
+					play.bitmapData = Assets.getBitmapData("img/Menu/PlayButton.png");
+					help.bitmapData = Assets.getBitmapData("img/Menu/HelpButtonHover.png");
+					credits.bitmapData = Assets.getBitmapData("img/Menu/CreditsButton.png");
+				case 2:
+					play.bitmapData = Assets.getBitmapData("img/Menu/PlayButton.png");
+					help.bitmapData = Assets.getBitmapData("img/Menu/HelpButton.png");
+					credits.bitmapData = Assets.getBitmapData("img/Menu/CreditsButtonHover.png");
+				default:
+			}
+			center(play);
+		}
+	}
+	
+	private function onClick (e : MouseEvent) : Void {
+		if (mouseX >= 202 && mouseX <= 450) {
+			if (mouseY >= 137 && mouseY <= 215) {
+				var main : Main = cast parent;
+				main.openMenu(EScreen.S_ModeSelection);
+				super.setTargetAlpha(0);
+				selectionIndex = 0;
+			}
+		} 
+		if (mouseX >= 255 && mouseX <= 406) {
+			if (mouseY >= 245 && mouseY <= 292) {
+				var main : Main = cast parent;
+				main.openMenu(EScreen.S_Help);
+				super.setTargetAlpha(0);
+				selectionIndex = 1;
+			}
+		}
+		if (mouseX >= 187 && mouseX <= 461) {
+			if (mouseY >= 307 && mouseY <= 353) {
+				var main : Main = cast parent;
+				main.openMenu(EScreen.S_Credits);
+				super.setTargetAlpha(0);
+				selectionIndex = 2;
+			}
+		}
 	}
 	
 	private function onKeyDown (e : KeyboardEvent) {
@@ -73,6 +154,7 @@ class MainMenu extends Screen
 					default:
 						
 				}
+				super.setToBeDestroyed();
 			} else {
 				if (e.keyCode == Keyboard.W || e.keyCode == Keyboard.UP) {
 					selectionIndex--;
@@ -100,8 +182,6 @@ class MainMenu extends Screen
 				}
 				
 				center(play);
-				center(help);
-				center(credits);
 			}
 		}
 	}
@@ -109,5 +189,23 @@ class MainMenu extends Screen
 	private function center (bmp : Bitmap) {
 		bmp.x = -bmp.width / 2;
 		bmp.y = -bmp.height / 2;
+	}
+	
+	override public function onDestroy () : Void {
+		removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
+		removeEventListener(MouseEvent.CLICK, onClick);
+		stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+		
+		buttonContainer.removeChild(play);
+		buttonContainer.removeChild(help);
+		buttonContainer.removeChild(credits);
+		removeChild(buttonContainer);
+		buttonContainer = null;
+		credits = null;
+		play = null;
+		help = null;
+		
+		removeChild(background);
+		background = null;
 	}
 }
