@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <link rel="icon" type="image/ico" href="/favicon.ico"/>
+        <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="style.css">
+      <title>Solarfly Studios ~ T4Y Beta Pre-2.0</title>
+  </head>
+  <body>
+    <center>
+      <div margin-top="100px" height="500px" width="660px" border-radius="5px" border-style="outset">
+        <iframe id="swf" width="640" height="480" src="assets/Time4YouDev.swf" frameborder="0" margin="10px"></iframe>
+      </div>
+      <h1 style="color: #E64C3C"><span class="span1"~</span> Super Secret Development Build <span class="span1"~</span></h1>
+    </center>
+
+      <!-- Swf -->
+  <script>
+	function hash (s) { var sum = 0; for (c in s) { sum = sum ^ s.charCodeAt(c); } return sum; }
+	
+	window.onload = function() {
+      document.getElementById("swf").focus();
+	  var ans = prompt("Enter password", "password");
+	  if (hash(ans) != 67) {
+		window.close();
+	  }
+    };
+  </script>
+  </body>
+</html>

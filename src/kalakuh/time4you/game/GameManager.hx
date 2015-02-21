@@ -224,11 +224,34 @@ class GameManager extends Screen
 			var enemy : Enemy;
 			if (scoreNumb < 7500) { 
 				enemy = new Enemy(EEnemy.Triangle);
-			} else if (scoreNumb < 25000) {
-				enemy = new Enemy(Math.random() < 0.66 ? EEnemy.Triangle : EEnemy.Star);
+			} else if (scoreNumb < 35000) {
+				if (Math.random() < 0.5) {
+					enemy = new Enemy(EEnemy.Triangle);
+				} else {
+					if (Math.random() < 0.5) {
+						enemy = new Enemy(EEnemy.Pentagon);
+					} else {
+						enemy = new Enemy(EEnemy.Star);
+					}
+				}
 			} else {
-				enemy = new Enemy(Math.random() < 0.5 ? EEnemy.Triangle : Math.random() < 0.5 ? EEnemy.Pentagon : EEnemy.Star);
+				if (Math.random() < 1.0 / 7.0) {
+					enemy = new Enemy(EEnemy.Triangle);
+				} else if (Math.random() < 1.0 / 6.0) {
+					enemy = new Enemy(EEnemy.Star);
+				} else if (Math.random() < 1.0 / 5.0) {
+					enemy = new Enemy(EEnemy.Pentagon);
+				} else if (Math.random() < 1.0 / 4.0) {
+					enemy = new Enemy(EEnemy.Missile);
+				} else if (Math.random() < 1.0 / 3.0) {
+					enemy = new Enemy(EEnemy.Hexagon);
+				} else if (Math.random() < 1.0 / 2.0) {
+					enemy = new Enemy(EEnemy.Ghost);
+				} else {
+					enemy = new Enemy(EEnemy.Sine);
+				}
 			}
+			
 			addChildAt(enemy, 1);
 			enemies.push(enemy);
 		}
@@ -236,8 +259,19 @@ class GameManager extends Screen
 		// update enemies
 		var removed : UInt = 0;
 		for (e in 0...enemies.length) {
-			enemies[e - removed].update(pSpeed * (slowmo ? 0.5 : 1));
-			if (enemies[e - removed].x < -50 || enemies[e - removed].y < -50 || enemies[e - removed].x > stage.stageWidth + 50 || enemies[e - removed].y > stage.stageHeight + 50) {
+			enemies[e - removed].update(pSpeed * (slowmo ? 0.5 : 1), player);
+			if (enemies[e - removed].getType() == EEnemy.Hexagon) {
+				if (enemies[e - removed].getLifetime() <= 0 && enemies[e - removed].getExplode()) {
+					for (iter in 0...6) {
+						var en : Enemy = new Enemy(EEnemy.HexagonSmall, true, enemies[e - removed].x, enemies[e - removed].y, enemies[e - removed].rotation + (60 * iter));
+						addChildAt(en, 1);
+						enemies.push(en);
+						enemies[e - removed].setExplode(false);
+					}
+				}
+			}
+			
+			if (enemies[e - removed].alpha <= 0.01 || enemies[e - removed].x < -50 || enemies[e - removed].y < -50 || enemies[e - removed].x > stage.stageWidth + 50 || enemies[e - removed].y > stage.stageHeight + 50) {
 				removeChild(enemies[e - removed]);
 				enemies.remove(enemies[e - removed]);
 				removed++;
@@ -337,9 +371,11 @@ class GameManager extends Screen
 		removeChild(coin);
 		coin = null;
 		
-		if (oldCoin.stage != null) {
-			removeChild(oldCoin);
-			oldCoin = null;
+		if (oldCoin != null) {
+			if (oldCoin.stage != null) {
+				removeChild(oldCoin);
+				oldCoin = null;
+			}
 		}
 		
 		removeChild(stamina);

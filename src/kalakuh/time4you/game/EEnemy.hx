@@ -9,4 +9,9 @@ enum EEnemy
 	Triangle;
 	Star;
 	Pentagon;
+	Hexagon;
+	HexagonSmall;
+	Missile;
+	Ghost;
+	Sine;
 }
