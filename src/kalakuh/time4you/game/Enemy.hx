@@ -53,7 +53,7 @@ class Enemy extends Sprite
 				enemy = new Bitmap(Assets.getBitmapData("img/In-Game/InvisEnemy.png"));
 				speed = 0.8;
 			case EEnemy.Sine:
-				enemy = new Bitmap(Assets.getBitmapData("img/In-Game/InvisEnemy.png"));
+				enemy = new Bitmap(Assets.getBitmapData("img/In-Game/SineEnemy.png"));
 				speed = 0.6;
 			default:
 				enemy = new Bitmap(Assets.getBitmapData("img/In-Game/Enemy1.png"));
