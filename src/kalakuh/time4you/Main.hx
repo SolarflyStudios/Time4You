@@ -32,7 +32,7 @@ class Main extends Sprite
 	private var mSelection : ModeSelection;
 	private var game : GameManager;
 	private var gOver : GameOver;
-	private var sound : Sound;
+	private static var sound : Sound;
 	
 	#if flash
 		private static var kongregate : KongregateAPI;
@@ -216,4 +216,12 @@ class Main extends Sprite
 		return kongregate;
 	}
 	#end
+	
+	public static function mute () : Void {
+		sound.close();
+	}
+	
+	public static function unmute () : Void {
+		sound.play(0, 9999);
+	}
 }

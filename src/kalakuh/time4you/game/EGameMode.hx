@@ -8,4 +8,5 @@ enum EGameMode
 {
 	Classic;
 	Rush;
+	Storm;
 }

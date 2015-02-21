@@ -127,7 +127,7 @@ class GameManager extends Screen
 			rushTimer.addEventListener(TimerEvent.TIMER, updateTimer);
 			rushTimer.addEventListener(TimerEvent.TIMER_COMPLETE, timerComplete);
 			rushTimer.start();
-		} else {
+		} else if (gamemode == EGameMode.Classic || gamemode == EGameMode.Storm) {
 			score = new Counter();
 			addChild(score);
 		}
@@ -169,9 +169,9 @@ class GameManager extends Screen
 	}
 	
 	private function update (e : Event) : Void {
-		if (gamemode == EGameMode.Classic) {
+		if (gamemode == EGameMode.Classic || gamemode == EGameMode.Storm) {
 			score.setTargetAlpha(1);
-		} else {
+		} else if (gamemode == EGameMode.Rush) {
 			rush.setTargetAlpha(1);
 		}
 		
@@ -195,7 +195,7 @@ class GameManager extends Screen
 		pixelsMoved += pSpeed;
 		
 		scoreNumb += pSpeed * (1 + collectedCoins);
-		if (gamemode == EGameMode.Classic) {
+		if (gamemode == EGameMode.Classic || gamemode == EGameMode.Storm) {
 			score.addScore(pSpeed * (1 + collectedCoins));
 		}
 		
@@ -292,7 +292,7 @@ class GameManager extends Screen
 				if (gamemode == EGameMode.Rush) rushTimer.stop();
 				super.setToBeDestroyed();
 			}
-			if (gamemode == EGameMode.Classic && enemy.getHitbox().intersects(score.getHitbox())) {
+			if ((gamemode == EGameMode.Classic || gamemode == EGameMode.Storm) && enemy.getHitbox().intersects(score.getHitbox())) {
 				score.setTargetAlpha(0.5);
 			} else if (gamemode == EGameMode.Rush && enemy.getHitbox().intersects(rush.getHitbox())) {
 				rush.setTargetAlpha(0.5);
@@ -319,14 +319,14 @@ class GameManager extends Screen
 		}
 		
 		// score & timer
-		if (gamemode == EGameMode.Classic) {
+		if (gamemode == EGameMode.Classic || gamemode == EGameMode.Storm) {
 			if (coin.getHitbox().intersects(score.getHitbox())) {
 				score.setTargetAlpha(0.5);
 			}
 			if (player.getHitbox().intersects(score.getHitbox())) {
 				score.setTargetAlpha(0.5);
 			}
-		} else {
+		} else if (gamemode == EGameMode.Rush) {
 			if (coin.getHitbox().intersects(rush.getHitbox())) {
 				rush.setTargetAlpha(0.5);
 			}
@@ -360,7 +360,7 @@ class GameManager extends Screen
 		removeChild(player);
 		player = null;
 		
-		if (gamemode == EGameMode.Classic) {
+		if (gamemode == EGameMode.Classic || gamemode == EGameMode.Storm) {
 			removeChild(score);
 			score = null;
 		} else {
