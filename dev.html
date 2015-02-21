@@ -17,12 +17,8 @@
       <!-- Swf -->
   <script>
 	function hash (s) { var sum = 0; for (c in s) { sum = sum ^ s.charCodeAt(c); } return sum; }
-	
-	var ans = prompt("Enter password", "password");
 	$(document).ready(function(){
-		if (hash(ans) == 67) {
-			$('#swfdiv').append('<iframe id="swf" width="640" height="480" src="assets/Time4YouDev.swf" frameborder="0" margin="10px"></iframe>');
-		}
+		$('#swfdiv').append('<iframe id="swf" width="640" height="480" src="assets/Time4YouDev.swf" frameborder="0" margin="10px"></iframe>');
 	});
   </script>
   </body>
