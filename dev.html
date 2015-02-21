@@ -20,7 +20,7 @@
 	
 	var ans = prompt("Enter password", "password");
 	$(document).ready(function(){
-		if (hash(ans) != 67) {
+		if (hash(ans) == 67) {
 			$('#swfdiv').append('<iframe id="swf" width="640" height="480" src="assets/Time4YouDev.swf" frameborder="0" margin="10px"></iframe>');
 		}
 	});
