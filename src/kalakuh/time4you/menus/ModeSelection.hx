@@ -85,10 +85,10 @@ class ModeSelection extends Screen
 	
 	private function scrollUpdate (e : Event) : Void {
 		if (super.isVisible()) {
-			if (mouseX < 50) {
-				buttonContainer.x = Math.min(0, buttonContainer.x + (10 / Math.max(mouseX, 1)));
-			} else if (mouseX > stage.stageWidth - 50) {
-				buttonContainer.x = Math.max(stage.stageWidth / 2 * -(BUTTON_COUNT - 2), buttonContainer.x - (10 / Math.max(stage.stageWidth - mouseX, 1)));
+			if (mouseX < 100) {
+				buttonContainer.x = Math.min(0, buttonContainer.x + (10 / Math.max(mouseX / 4, 1)));
+			} else if (mouseX > stage.stageWidth - 100) {
+				buttonContainer.x = Math.max(stage.stageWidth / 2 * -(BUTTON_COUNT - 2), buttonContainer.x - (10 / Math.max((stage.stageWidth - mouseX) / 4, 1)));
 			}
 		}
 	}
@@ -143,7 +143,7 @@ class ModeSelection extends Screen
 				case 2:
 					classic.bitmapData = Assets.getBitmapData("img/Game Mode/ClassicModeButton.png");
 					classic.filters = [];
-					rush.bitmapData = Assets.getBitmapData("img/Game Mode/RushModeButtonHover.png");
+					rush.bitmapData = Assets.getBitmapData("img/Game Mode/RushModeButton.png");
 					rush.filters = [];
 					storm.bitmapData = Assets.getBitmapData("img/Game Mode/StormHover.png");
 					storm.filters = [new GlowFilter(0xFFFFFF, 1, 8, 8, 3, 2)];
@@ -195,7 +195,7 @@ class ModeSelection extends Screen
 					case 2:
 						classic.bitmapData = Assets.getBitmapData("img/Game Mode/ClassicModeButton.png");
 						classic.filters = [];
-						rush.bitmapData = Assets.getBitmapData("img/Game Mode/RushModeButtonHover.png");
+						rush.bitmapData = Assets.getBitmapData("img/Game Mode/RushModeButton.png");
 						rush.filters = [];
 						storm.bitmapData = Assets.getBitmapData("img/Game Mode/StormHover.png");
 						storm.filters = [new GlowFilter(0xFFFFFF, 1, 8, 8, 3, 2)];

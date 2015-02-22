@@ -34,6 +34,7 @@ class GameManager extends Screen
 	private var pixelsMoved : Float = 0;
 	
 	private var enemySpawnCounter : Float = 400;
+	private var stormSpawnCounter : Float = 400;
 	private var enemies : Array<Enemy>;
 	
 	private var collectedCoins : UInt = 0;
@@ -52,6 +53,8 @@ class GameManager extends Screen
 	private var alive : Bool = false;
 	
 	private var scoreNumb : Float = 0;
+	
+	private var volume : Volume;
 	
 	public function new() 
 	{
@@ -83,6 +86,11 @@ class GameManager extends Screen
 		
 		glow = new SlowMotionGlow();
 		addChild(glow);
+		
+		volume = new Volume();
+		addChild(volume);
+		volume.x = stage.stageWidth - 50;
+		volume.y = 50;
 		
 		stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 		stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
@@ -148,6 +156,10 @@ class GameManager extends Screen
 		
 		player.setAlive(true);
 		
+		if (gamemode == EGameMode.Storm) {
+			enemySpawnCounter = 100;
+		}
+		
 		addEventListener(Event.ENTER_FRAME, update);
 	}
 	
@@ -176,6 +188,7 @@ class GameManager extends Screen
 		}
 		
 		stamina.setTargetAlpha(0.8);
+		volume.setTargetAlpha(1);
 		
 		// update player's speed
 		if (keysDown.indexOf(Keyboard.UP) != -1 || keysDown.indexOf(Keyboard.W) != -1) {
@@ -219,12 +232,17 @@ class GameManager extends Screen
 		// update enemy spawn counter & spawn enemies
 		if (pixelsMoved >= enemySpawnCounter) {
 			pixelsMoved %= enemySpawnCounter;
-			enemySpawnCounter -= enemySpawnCounter / 40;
+			
+			if (gamemode != EGameMode.Storm) {
+				enemySpawnCounter -= enemySpawnCounter / 40;
+			} else {
+				enemySpawnCounter -= 0.2;
+			}
 			
 			var enemy : Enemy;
-			if (scoreNumb < 7500) { 
+			if (scoreNumb < 7500 && gamemode != EGameMode.Storm) { 
 				enemy = new Enemy(EEnemy.Triangle);
-			} else if (scoreNumb < 35000) {
+			} else if (scoreNumb < 35000 && gamemode != EGameMode.Storm) {
 				if (Math.random() < 0.5) {
 					enemy = new Enemy(EEnemy.Triangle);
 				} else {
@@ -300,6 +318,9 @@ class GameManager extends Screen
 			if (enemy.getHitbox().intersects(stamina.getHitbox())) {
 				stamina.setTargetAlpha(0.5);
 			}
+			if (enemy.getHitbox().intersects(volume.getHitbox())) {
+				volume.setTargetAlpha(0.5);
+			}
 		}
 			// coin
 		if (player.getHitbox().intersects(coin.getHitbox())) {
@@ -341,6 +362,14 @@ class GameManager extends Screen
 		}
 		if (player.getHitbox().intersects(stamina.getHitbox())) {
 			stamina.setTargetAlpha(0.5);
+		}
+		
+		// volume
+		if (player.getHitbox().intersects(volume.getHitbox())) {
+			volume.setTargetAlpha(0.5);
+		}
+		if (coin.getHitbox().intersects(volume.getHitbox())) {
+			volume.setTargetAlpha(0.5);
 		}
 	}
 	
@@ -386,5 +415,8 @@ class GameManager extends Screen
 			enemy = null;
 		}
 		enemies.splice(0, enemies.length);
+		
+		removeChild(volume);
+		volume = null;
 	}
 }
