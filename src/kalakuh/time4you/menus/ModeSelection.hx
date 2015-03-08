@@ -16,11 +16,10 @@ import openfl.events.MouseEvent;
  * ...
  * @author Kalakuh
  */
-class ModeSelection extends Screen
-{
-	private var classic : Bitmap;
-	private var rush : Bitmap;
-	private var storm : Bitmap;
+class ModeSelection extends Screen {
+	private var button : Bitmap;
+	private var left : Bitmap;
+	private var right : Bitmap;
 	
 	private var buttonContainer : Sprite;
 	
@@ -43,59 +42,64 @@ class ModeSelection extends Screen
 		buttonContainer = new Sprite();
 		
 		if (selectionIndex == 0) {
-			classic = new Bitmap(Assets.getBitmapData("img/Game Mode/ClassicModeButtonHover.png"));
-			classic.filters = [new GlowFilter(0xFFFFFF, 1, 8, 8, 3, 2)];
-			rush = new Bitmap(Assets.getBitmapData("img/Game Mode/RushModeButton.png"));
-			storm = new Bitmap(Assets.getBitmapData("img/Game Mode/Storm.png"));
+			button = new Bitmap(Assets.getBitmapData("img/Game Mode/ClassicModeButtonHover.png"));
 		} else if (selectionIndex == 1) {
-			classic = new Bitmap(Assets.getBitmapData("img/Game Mode/ClassicModeButton.png"));
-			rush = new Bitmap(Assets.getBitmapData("img/Game Mode/RushModeButtonHover.png"));
-			rush.filters = [new GlowFilter(0xFFFFFF, 1, 8, 8, 3, 2)];
-			storm = new Bitmap(Assets.getBitmapData("img/Game Mode/Storm.png"));
+			button = new Bitmap(Assets.getBitmapData("img/Game Mode/RushModeButtonHover.png"));
 		} else if (selectionIndex == 2) {
-			classic = new Bitmap(Assets.getBitmapData("img/Game Mode/ClassicModeButton.png"));
-			rush = new Bitmap(Assets.getBitmapData("img/Game Mode/RushModeButton.png"));
-			storm = new Bitmap(Assets.getBitmapData("img/Game Mode/StormHover.png"));
-			storm.filters = [new GlowFilter(0xFFFFFF, 1, 8, 8, 3, 2)];
+			button = new Bitmap(Assets.getBitmapData("img/Game Mode/StormHover.png"));
 		}
+		button.filters = [new GlowFilter(0xFFFFFF, 1, 8, 8, 3, 2)];
 		
 		addChild(background);
+		center(button);
+		button.x += stage.stageWidth / 2;
+		button.y += stage.stageHeight / 2 + 20;
+		addChild(button);
 		
-		addChild(buttonContainer);
-		
-		buttonContainer.addChild(classic);
-		buttonContainer.addChild(rush);
-		buttonContainer.addChild(storm);
-		buttonContainer.x = 0;
-		buttonContainer.y = stage.stageHeight / 2 + 20;
-		
-		center(classic);
-		center(rush);
-		center(storm);
-		
-		classic.x += stage.stageWidth / 4 * 1;
-		rush.x += stage.stageWidth / 4 * 3;
-		storm.x += stage.stageWidth / 4 * 5;
+		left = new Bitmap(Assets.getBitmapData("img/Game Mode/Left.png"));
+		right = new Bitmap(Assets.getBitmapData("img/Game Mode/Right.png"));
+		center(left);
+		center(right);
+		addChild(left);
+		addChild(right);
+		left.y += stage.stageHeight / 2 + 20;
+		right.y += stage.stageHeight / 2 + 20;
+		left.x += 105;
+		right.x += stage.stageWidth - 105;
 		
 		stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 		addEventListener(MouseEvent.CLICK, onClick);
 		addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
-		addEventListener(Event.ENTER_FRAME, scrollUpdate);
-	}
-	
-	private function scrollUpdate (e : Event) : Void {
-		if (super.isVisible()) {
-			if (mouseX < 100) {
-				buttonContainer.x = Math.min(0, buttonContainer.x + (10 / Math.max(mouseX / 4, 1)));
-			} else if (mouseX > stage.stageWidth - 100) {
-				buttonContainer.x = Math.max(stage.stageWidth / 2 * -(BUTTON_COUNT - 2), buttonContainer.x - (10 / Math.max((stage.stageWidth - mouseX) / 4, 1)));
-			}
-		}
 	}
 	
 	private function onClick (e : MouseEvent) : Void {
-		// check if mouse is in radius		
-		if (checkDistance(classic) || checkDistance(rush) || checkDistance(storm)) {
+		var index : Int = selectionIndex;
+		if (mouseX >= 55 && mouseX <= 150 && mouseY >= 231 && mouseY <= 289) {
+			selectionIndex--;
+			if (selectionIndex < 0) selectionIndex = BUTTON_COUNT - 1;
+		}
+		if (mouseX >= 485 && mouseX <= 580 && mouseY >= 231 && mouseY <= 289) {
+			selectionIndex++;
+			if (selectionIndex > BUTTON_COUNT - 1) selectionIndex = 0;
+		}
+		
+		if (index != selectionIndex) {
+			switch (selectionIndex) {
+				case 0:
+					button.bitmapData = Assets.getBitmapData("img/Game Mode/ClassicModeButtonHover.png");
+				case 1:
+					button.bitmapData = Assets.getBitmapData("img/Game Mode/RushModeButtonHover.png");
+				case 2:
+					button.bitmapData = Assets.getBitmapData("img/Game Mode/StormHover.png");
+				default:
+			}
+			center(button);
+			button.x += stage.stageWidth / 2;
+			button.y += stage.stageHeight / 2 + 20;
+		}
+		
+		// check if mouse is in radius
+		if (checkDistance(button)) {
 			var main : Main = cast parent;
 			super.setTargetAlpha(0);
 			if (selectionIndex == 0) {
@@ -110,46 +114,7 @@ class ModeSelection extends Screen
 	}
 	
 	private function onMouseMove (e : MouseEvent) : Void {
-		var index : Int = selectionIndex;
 		
-		if (checkDistance(classic)) {
-			selectionIndex = 0;
-		}
-		
-		if (checkDistance(rush)) {
-			selectionIndex = 1;
-		}
-		
-		if (checkDistance(storm)) {
-			selectionIndex = 2;
-		}
-		
-		if (index != selectionIndex) {
-			switch (selectionIndex) {
-				case 0:
-					classic.bitmapData = Assets.getBitmapData("img/Game Mode/ClassicModeButtonHover.png");
-					classic.filters = [new GlowFilter(0xFFFFFF, 1, 8, 8, 3, 2)];
-					rush.bitmapData = Assets.getBitmapData("img/Game Mode/RushModeButton.png");
-					rush.filters = [];
-					storm.bitmapData = Assets.getBitmapData("img/Game Mode/Storm.png");
-					storm.filters = [];
-				case 1:
-					classic.bitmapData = Assets.getBitmapData("img/Game Mode/ClassicModeButton.png");
-					classic.filters = [];
-					rush.bitmapData = Assets.getBitmapData("img/Game Mode/RushModeButtonHover.png");
-					rush.filters = [new GlowFilter(0xFFFFFF, 1, 8, 8, 3, 2)];
-					storm.bitmapData = Assets.getBitmapData("img/Game Mode/Storm.png");
-					storm.filters = [];
-				case 2:
-					classic.bitmapData = Assets.getBitmapData("img/Game Mode/ClassicModeButton.png");
-					classic.filters = [];
-					rush.bitmapData = Assets.getBitmapData("img/Game Mode/RushModeButton.png");
-					rush.filters = [];
-					storm.bitmapData = Assets.getBitmapData("img/Game Mode/StormHover.png");
-					storm.filters = [new GlowFilter(0xFFFFFF, 1, 8, 8, 3, 2)];
-				default:
-			}
-		}
 	}
 	
 	private function onKeyDown (e : KeyboardEvent) {
@@ -179,28 +144,16 @@ class ModeSelection extends Screen
 				
 				switch (selectionIndex) {
 					case 0:
-						classic.bitmapData = Assets.getBitmapData("img/Game Mode/ClassicModeButtonHover.png");
-						classic.filters = [new GlowFilter(0xFFFFFF, 1, 8, 8, 3, 2)];
-						rush.bitmapData = Assets.getBitmapData("img/Game Mode/RushModeButton.png");
-						rush.filters = [];
-						storm.bitmapData = Assets.getBitmapData("img/Game Mode/Storm.png");
-						storm.filters = [];
+						button.bitmapData = Assets.getBitmapData("img/Game Mode/ClassicModeButtonHover.png");
 					case 1:
-						classic.bitmapData = Assets.getBitmapData("img/Game Mode/ClassicModeButton.png");
-						classic.filters = [];
-						rush.bitmapData = Assets.getBitmapData("img/Game Mode/RushModeButtonHover.png");
-						rush.filters = [new GlowFilter(0xFFFFFF, 1, 8, 8, 3, 2)];
-						storm.bitmapData = Assets.getBitmapData("img/Game Mode/Storm.png");
-						storm.filters = [];
+						button.bitmapData = Assets.getBitmapData("img/Game Mode/RushModeButtonHover.png");
 					case 2:
-						classic.bitmapData = Assets.getBitmapData("img/Game Mode/ClassicModeButton.png");
-						classic.filters = [];
-						rush.bitmapData = Assets.getBitmapData("img/Game Mode/RushModeButton.png");
-						rush.filters = [];
-						storm.bitmapData = Assets.getBitmapData("img/Game Mode/StormHover.png");
-						storm.filters = [new GlowFilter(0xFFFFFF, 1, 8, 8, 3, 2)];
+						button.bitmapData = Assets.getBitmapData("img/Game Mode/StormHover.png");
 					default:
 				}
+				center(button);
+				button.x += stage.stageWidth / 2;
+				button.y += stage.stageHeight / 2 + 20;
 			}
 		}
 	}
@@ -218,14 +171,9 @@ class ModeSelection extends Screen
 		stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 		removeEventListener(MouseEvent.CLICK, onClick);
 		removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
-		removeEventListener(Event.ENTER_FRAME, scrollUpdate);
 		
-		buttonContainer.removeChild(classic);
-		buttonContainer.removeChild(rush);
-		removeChild(buttonContainer);
-		buttonContainer = null;
-		classic = null;
-		rush = null;
+		removeChild(button);
+		button = null;
 		
 		removeChild(background);
 		background = null;

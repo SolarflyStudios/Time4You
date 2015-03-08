@@ -100,7 +100,7 @@ class GameManager extends Screen
 		if (keysDown.indexOf(e.keyCode) == -1 && alive) {
 			keysDown.push(e.keyCode);
 			if (e.keyCode == Keyboard.SPACE) {
-				if (stamina.getStamina() > 0 && pixelsMoved > 10) {
+				if (player.getSpeed() > 0.1) {
 					slowmoSound.play();
 				}
 			}
@@ -138,6 +138,7 @@ class GameManager extends Screen
 		} else if (gamemode == EGameMode.Classic || gamemode == EGameMode.Storm) {
 			score = new Counter();
 			addChild(score);
+			score.setValue(0);
 		}
 		
 		coin.newPosition();
@@ -207,11 +208,6 @@ class GameManager extends Screen
 		var pSpeed : Float = player.getSpeed();
 		pixelsMoved += pSpeed;
 		
-		scoreNumb += pSpeed * (1 + collectedCoins);
-		if (gamemode == EGameMode.Classic || gamemode == EGameMode.Storm) {
-			score.addScore(pSpeed * (1 + collectedCoins));
-		}
-		
 		// slow mo'
 		var slowmo : Bool = false;
 		if (keysDown.indexOf(Keyboard.SPACE) != -1) {
@@ -240,9 +236,9 @@ class GameManager extends Screen
 			}
 			
 			var enemy : Enemy;
-			if (scoreNumb < 7500 && gamemode != EGameMode.Storm) { 
+			if (scoreNumb < 3 && gamemode != EGameMode.Storm) { 
 				enemy = new Enemy(EEnemy.Triangle);
-			} else if (scoreNumb < 35000 && gamemode != EGameMode.Storm) {
+			} else if (scoreNumb < 9 && gamemode != EGameMode.Storm) {
 				if (Math.random() < 0.5) {
 					enemy = new Enemy(EEnemy.Triangle);
 				} else {
@@ -332,11 +328,16 @@ class GameManager extends Screen
 			addChildAt(oldCoin, 1);
 			
 			coin.alpha = 0;
-			coin.newPosition();
+			while (Math.sqrt(Math.pow(coin.x - player.x, 2) + Math.pow(coin.y - player.y, 2)) < 100) {
+				coin.newPosition();
+			}
 			
 			stamina.increase(10);
 			
 			coinSound.play();
+			
+			score.setValue(score.getValue() + 1);
+			scoreNumb++;
 		}
 		
 		// score & timer

@@ -46,6 +46,8 @@ class KongregateAPI {
 				kongregate.stats.submit("HighscoreNormal", score);
 			} else if (gamemode == EGameMode.Rush) {
 				kongregate.stats.submit("HighscoreRush", score);
+			} else if (gamemode == EGameMode.Storm) {
+				kongregate.stats.submit("HighscoreStorm", score);
 			}
 		}
 	}
