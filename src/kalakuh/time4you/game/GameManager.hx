@@ -336,7 +336,7 @@ class GameManager extends Screen
 			
 			coinSound.play();
 			
-			score.setValue(score.getValue() + 1);
+			if (gamemode != EGameMode.Rush) score.setValue(score.getValue() + 1);
 			scoreNumb++;
 		}
 		
