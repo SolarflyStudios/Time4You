@@ -3,6 +3,7 @@ package kalakuh.time4you.game;
 import kalakuh.time4you.gui.Screen;
 import kalakuh.time4you.Main;
 import kalakuh.time4you.gui.EScreen;
+import openfl.errors.Error;
 import openfl.events.Event;
 import openfl.Assets;
 import openfl.display.Bitmap;
@@ -33,8 +34,7 @@ class GameManager extends Screen
 	
 	private var pixelsMoved : Float = 0;
 	
-	private var enemySpawnCounter : Float = 400;
-	private var stormSpawnCounter : Float = 400; // TODO: Why!?
+	private var enemySpawnCounter : Float;
 	private var enemies : Array<Enemy>;
 	
 	private var powerSpawnCounter : Float = 2000;
@@ -76,6 +76,8 @@ class GameManager extends Screen
 		addChild(coin);
 		
 		enemies = new Array();
+		
+		powers = new Array();
 		
 		player = new Player();
 		addChild(player);
@@ -210,6 +212,22 @@ class GameManager extends Screen
 		
 		var pSpeed : Float = player.getSpeed();
 		pixelsMoved += pSpeed;
+		powerSpawnCounter -= pSpeed;
+		if (powerSpawnCounter <= 0) {
+			powerSpawnCounter = 1500 + Math.random() * 1500;
+			var power : PowerUp;
+			// TODO
+			if (Math.random() < 1.0 / 3.0) {
+				power = new PowerUp(EPowerUp.Shrink);
+			} else if (Math.random() < 1.0 / 2.0) {
+				power = new PowerUp(EPowerUp.Shrink);
+			} else {
+				power = new PowerUp(EPowerUp.Shrink);
+			}
+			
+			addChild(power);
+			powers.push(power);
+		}
 		
 		// slow mo'
 		var slowmo : Bool = false;
@@ -321,6 +339,30 @@ class GameManager extends Screen
 				volume.setTargetAlpha(0.5);
 			}
 		}
+		
+			// power ups
+		for (power in powers) {
+			if (power.getHitbox().intersects(player.getHitbox())) {
+				switch (power.getType()) {
+					case EPowerUp.Shrink:
+						player.shrink();
+					default:
+						throw new Error("Power " + power.getType() + " not implemented yet!");
+				}
+			}
+			if ((gamemode == EGameMode.Classic || gamemode == EGameMode.Storm) && power.getHitbox().intersects(score.getHitbox())) {
+				score.setTargetAlpha(0.5);
+			} else if (gamemode == EGameMode.Rush && power.getHitbox().intersects(rush.getHitbox())) {
+				rush.setTargetAlpha(0.5);
+			}
+			if (power.getHitbox().intersects(stamina.getHitbox())) {
+				stamina.setTargetAlpha(0.5);
+			}
+			if (power.getHitbox().intersects(volume.getHitbox())) {
+				volume.setTargetAlpha(0.5);
+			}
+		}
+		
 			// coin
 		if (player.getHitbox().intersects(coin.getHitbox())) {
 			collectedCoins++;
@@ -331,6 +373,8 @@ class GameManager extends Screen
 			addChildAt(oldCoin, 1);
 			
 			coin.alpha = 0;
+			
+			// make sure that coin doesn't immediately touch player
 			while (Math.sqrt(Math.pow(coin.x - player.x, 2) + Math.pow(coin.y - player.y, 2)) < 100) {
 				coin.newPosition();
 			}
@@ -419,6 +463,12 @@ class GameManager extends Screen
 			enemy = null;
 		}
 		enemies.splice(0, enemies.length);
+		
+		for (power in powers) {
+			removeChild(power);
+			power = null;
+		}
+		powers.splice(0, powers.length);
 		
 		removeChild(volume);
 		volume = null;
