@@ -165,6 +165,7 @@ class Enemy extends Sprite
 	}
 	
 	public function getHitbox () : Rectangle {
-		return new Rectangle(x - width / 3, y - height / 3, width * 2 / 3, height * 2 / 3);
+		if (type == EEnemy.Missile) return new Rectangle(x - width / 4.0, y - height / 4.0, width / 2.0, height / 2.0);
+		return new Rectangle(x - width / 3.0, y - height / 3.0, width * 2.0 / 3.0, height * 2.0 / 3.0);
 	}
 }

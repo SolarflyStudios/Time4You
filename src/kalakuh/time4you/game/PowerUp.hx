@@ -19,7 +19,7 @@ class PowerUp extends Sprite
 	{
 		super();
 		switch (type) {
-			case EPowerUp.Size:
+			case EPowerUp.Shrink:
 				
 			default:
 				
@@ -41,6 +41,6 @@ class PowerUp extends Sprite
 	}
 	
 	public function getHitbox () : Rectangle {
-		return new Rectangle(x - width / 3, y - height / 3, width * 2 / 3, height * 2 / 3);
+		return new Rectangle(x - width / 3.0, y - height / 3.0, width * 2.0 / 3.0, height * 2.0 / 3.0);
 	}
 }
