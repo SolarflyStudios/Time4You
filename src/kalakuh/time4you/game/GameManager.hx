@@ -34,8 +34,11 @@ class GameManager extends Screen
 	private var pixelsMoved : Float = 0;
 	
 	private var enemySpawnCounter : Float = 400;
-	private var stormSpawnCounter : Float = 400;
+	private var stormSpawnCounter : Float = 400; // TODO: Why!?
 	private var enemies : Array<Enemy>;
+	
+	private var powerSpawnCounter : Float = 2000;
+	private var powers : Array<PowerUp>;
 	
 	private var collectedCoins : UInt = 0;
 	private var coin : Coin;

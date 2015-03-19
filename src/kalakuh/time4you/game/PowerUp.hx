@@ -19,7 +19,10 @@ class PowerUp extends Sprite
 	{
 		super();
 		switch (type) {
-			
+			case EPowerUp.Size:
+				
+			default:
+				
 		}
 		this.type = type;
 	}
@@ -31,10 +34,6 @@ class PowerUp extends Sprite
 	
 	public function getType () : EPowerUp {
 		return type;
-	}
-	 
-	public function update () : Void {
-		
 	}
 	
 	public function getPowerUp () : Bitmap {
