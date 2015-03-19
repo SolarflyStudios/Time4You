@@ -102,7 +102,7 @@ class GameManager extends Screen
 	private function onKeyDown (e : KeyboardEvent) : Void {
 		if (keysDown.indexOf(e.keyCode) == -1 && alive) {
 			keysDown.push(e.keyCode);
-			if (e.keyCode == Keyboard.SPACE) {
+			if (e.keyCode == Keyboard.SPACE && stamina.getStamina() > 0) {
 				if (player.getSpeed() > 0.1) {
 					slowmoSound.play();
 				}
