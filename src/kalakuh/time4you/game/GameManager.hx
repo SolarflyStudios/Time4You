@@ -52,6 +52,7 @@ class GameManager extends Screen
 	
 	private var slowmoSound : Sound;
 	private var coinSound : Sound;
+	private var powerSound : Sound;
 	
 	private var alive : Bool = false;
 	
@@ -85,6 +86,7 @@ class GameManager extends Screen
 		deathSound = Assets.getSound("sound/death.mp3");
 		slowmoSound = Assets.getSound("sound/slowmo.mp3");
 		coinSound = Assets.getSound("sound/coin.mp3");
+		powerSound = Assets.getSound("sound/power.mp3");
 		
 		stamina = new StaminaBar();
 		addChild(stamina);
@@ -351,6 +353,7 @@ class GameManager extends Screen
 					default:
 						throw new Error("Power " + power.getType() + " not implemented yet!");
 				}
+				powerSound.play();
 				power.setTargetAlpha(0);
 				power.setCollected(true);
 			} else if (power.getCollected() && power.alpha <= 0.05) {
