@@ -21,6 +21,7 @@ class Enemy extends Sprite
 	
 	private var lifetime : Float; // hex
 	private var canExplode : Bool = true; // hex
+	private var deadly : Bool = true;
 	
 	private var a : Float = 0; // for ghost & sine wave
 	private var originalPos : Float; // sine wave
@@ -107,6 +108,10 @@ class Enemy extends Sprite
 		}
 	}
 	
+	public function isDeadly () : Bool {
+		return deadly;
+	}
+	
 	public function getExplode () {
 		return canExplode;
 	}
@@ -134,6 +139,7 @@ class Enemy extends Sprite
 			if (type == EEnemy.Hexagon) {
 				if (lifetime < 0) {
 					alpha -= 0.005 * pSpeed;
+					deadly = false;
 				} else {
 					lifetime -= speed * pSpeed;
 					x -= pSpeed * speed * Math.cos((rotation + 90) * Math.PI / 180);

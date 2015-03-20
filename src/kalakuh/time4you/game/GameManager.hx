@@ -316,7 +316,7 @@ class GameManager extends Screen
 		// check collisions
 			// enemies
 		for (enemy in enemies) {
-			if (enemy.getHitbox().intersects(player.getHitbox())) {
+			if (enemy.isDeadly() && enemy.getHitbox().intersects(player.getHitbox())) {
 				super.setTargetAlpha(0);
 				deathSound.play();
 				removeEventListener(Event.ENTER_FRAME, update);
@@ -341,7 +341,9 @@ class GameManager extends Screen
 		}
 		
 			// power ups
-		for (power in powers) {
+		var pi : Int = 0;
+		while (pi < powers.length) {
+			var power : PowerUp = powers[pi];
 			if (power.getHitbox().intersects(player.getHitbox())) {
 				switch (power.getType()) {
 					case EPowerUp.Shrink:
@@ -349,18 +351,24 @@ class GameManager extends Screen
 					default:
 						throw new Error("Power " + power.getType() + " not implemented yet!");
 				}
+				removeChild(powers[pi]);
+				powers[pi] = null;
+				powers.splice(pi, 1);
+				pi--;
+			} else {
+				if ((gamemode == EGameMode.Classic || gamemode == EGameMode.Storm) && power.getHitbox().intersects(score.getHitbox())) {
+					score.setTargetAlpha(0.5);
+				} else if (gamemode == EGameMode.Rush && power.getHitbox().intersects(rush.getHitbox())) {
+					rush.setTargetAlpha(0.5);
+				}
+				if (power.getHitbox().intersects(stamina.getHitbox())) {
+					stamina.setTargetAlpha(0.5);
+				}
+				if (power.getHitbox().intersects(volume.getHitbox())) {
+					volume.setTargetAlpha(0.5);
+				}
 			}
-			if ((gamemode == EGameMode.Classic || gamemode == EGameMode.Storm) && power.getHitbox().intersects(score.getHitbox())) {
-				score.setTargetAlpha(0.5);
-			} else if (gamemode == EGameMode.Rush && power.getHitbox().intersects(rush.getHitbox())) {
-				rush.setTargetAlpha(0.5);
-			}
-			if (power.getHitbox().intersects(stamina.getHitbox())) {
-				stamina.setTargetAlpha(0.5);
-			}
-			if (power.getHitbox().intersects(volume.getHitbox())) {
-				volume.setTargetAlpha(0.5);
-			}
+			pi++;
 		}
 		
 			// coin

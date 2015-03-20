@@ -17,6 +17,9 @@ class Player extends Sprite
 	private var yVel : Float = 0;
 	private var alive : Bool = false;
 	
+	private var shrinkCounter : UInt = 0;
+	private var targetScale : Float = 1;
+	
 	public function new() 
 	{
 		super();
@@ -49,8 +52,23 @@ class Player extends Sprite
 		yVel = 0;
 	}
 	
+	public function shrink () : Void {
+		targetScale = 0.5;
+		shrinkCounter = 500;
+	}
+	
 	private function update (e : Event) : Void {
 		if (alive) {
+			if (shrinkCounter > 0) {
+				shrinkCounter--;
+			} else {
+				targetScale = 1;
+			}
+			player.scaleX += (targetScale - player.scaleX) / 10.0;
+			player.scaleY += (targetScale - player.scaleY) / 10.0;
+			player.x = -player.width / 2.0;
+			player.y = -player.height / 2.0;
+			
 			x += xVel;
 			y += yVel;
 			xVel *= 0.96;
