@@ -14,6 +14,8 @@ class PowerUp extends Sprite
 {
 	private var powerup : Bitmap;
 	private var type : EPowerUp;
+	private var targetAlpha : Float = 1;
+	private var isCollected : Bool = false;
 	
 	public function new(type : EPowerUp)
 	{
@@ -26,7 +28,7 @@ class PowerUp extends Sprite
 		}
 		this.type = type;
 		addChild(powerup);
-		
+		alpha = 0;
 		addEventListener(Event.ADDED_TO_STAGE, init);
 	}
 	
@@ -37,6 +39,24 @@ class PowerUp extends Sprite
 		powerup.y = -powerup.height / 2;
 		this.x = powerup.width * 3 + (Math.random() * (stage.stageWidth - 6 * powerup.width));
 		this.y = powerup.height * 3 + (Math.random() * (stage.stageHeight - 6 * powerup.height));
+		
+		addEventListener(Event.ENTER_FRAME, updateAlpha);
+	}
+	
+	private function updateAlpha (e : Event) : Void {
+		alpha += (targetAlpha - alpha) / 20;
+	}
+	
+	public function setTargetAlpha (f : Float) : Void {
+		targetAlpha = f;
+	}
+	
+	public function getCollected () : Bool {
+		return isCollected;
+	}
+	
+	public function setCollected (b : Bool) : Void {
+		isCollected = b;
 	}
 	
 	public function getType () : EPowerUp {

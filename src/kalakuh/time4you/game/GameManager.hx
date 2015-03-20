@@ -344,13 +344,16 @@ class GameManager extends Screen
 		var pi : Int = 0;
 		while (pi < powers.length) {
 			var power : PowerUp = powers[pi];
-			if (power.getHitbox().intersects(player.getHitbox())) {
+			if (!power.getCollected() && power.getHitbox().intersects(player.getHitbox())) {
 				switch (power.getType()) {
 					case EPowerUp.Shrink:
 						player.shrink();
 					default:
 						throw new Error("Power " + power.getType() + " not implemented yet!");
 				}
+				power.setTargetAlpha(0);
+				power.setCollected(true);
+			} else if (power.getCollected() && power.alpha <= 0.05) {
 				removeChild(powers[pi]);
 				powers[pi] = null;
 				powers.splice(pi, 1);
