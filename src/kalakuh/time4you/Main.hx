@@ -60,6 +60,8 @@ class Main extends Sprite
 		sound = Assets.getSound("sound/DarknessOfForever.mp3");
 		channel = sound.play(0, 9999);
 		
+		Saving.init();
+		
 		#if flash
 			contextMenu = GameContextMenu.getContextMenu();
 			kongregate = new KongregateAPI();
@@ -73,6 +75,8 @@ class Main extends Sprite
 		// param = null;
 		// the actual object wouldn't be null after that... -_-
 		// well, let's just write the same code 6 times...
+		
+		// TODO: Could the function be inlined?
 		
 		// main menu
 		if (mainMenu != null) {
@@ -164,6 +168,7 @@ class Main extends Sprite
 	}
 	
 	public function gameOver (score : Float, gamemode : EGameMode) : Void {
+		Saving.setCoins(Saving.getCoins() + cast(score, UInt));
 		gOver = new GameOver();
 		addChild(gOver);
 		gOver.setTargetAlpha(1);
