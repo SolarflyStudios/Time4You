@@ -26,7 +26,7 @@ import openfl.media.Sound;
 
 class Main extends Sprite 
 {
-	private var inited:Bool;
+	private var inited : Bool;
 	private var mainMenu : MainMenu;
 	private var credits : Credits;
 	private var help : Help;

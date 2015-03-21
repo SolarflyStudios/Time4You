@@ -4,15 +4,16 @@ package;
 import haxe.Timer;
 import haxe.Unserializer;
 import lime.app.Preloader;
+import lime.audio.AudioSource;
 import lime.audio.openal.AL;
 import lime.audio.AudioBuffer;
-import lime.graphics.Font;
 import lime.graphics.Image;
+import lime.text.Font;
 import lime.utils.ByteArray;
 import lime.utils.UInt8Array;
 import lime.Assets;
 
-#if (sys || nodejs)
+#if sys
 import sys.FileSystem;
 #end
 
@@ -351,6 +352,13 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set (id, AssetType.MUSIC);
 		
 		
+		var assetsPrefix = ApplicationMain.config.assetsPrefix;
+		if (assetsPrefix != null) {
+			for (k in path.keys()) {
+				path.set(k, assetsPrefix + path[k]);
+			}
+		}
+		
 		#else
 		
 		#if openfl
@@ -621,11 +629,11 @@ class DefaultAssetLibrary extends AssetLibrary {
 			
 			#if flash
 			
-			if ((assetType == BINARY || assetType == TEXT) && requestedType == BINARY) {
+			if (requestedType == BINARY && (assetType == BINARY || assetType == TEXT || assetType == IMAGE)) {
 				
 				return true;
 				
-			} else if (path.exists (id)) {
+			} else if (requestedType == null || path.exists (id)) {
 				
 				return true;
 				
@@ -663,9 +671,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		#else
 		
-		return AudioBuffer.fromFile (path.get (id));
-		//if (className.exists(id)) return cast (Type.createInstance (className.get (id), []), Sound);
-		//else return new Sound (new URLRequest (path.get (id)), null, type.get (id) == MUSIC);
+		if (className.exists(id)) return AudioBuffer.fromBytes (cast (Type.createInstance (className.get (id), []), ByteArray));
+		else return AudioBuffer.fromFile (path.get (id));
 		
 		#end
 		
@@ -675,6 +682,23 @@ class DefaultAssetLibrary extends AssetLibrary {
 	public override function getBytes (id:String):ByteArray {
 		
 		#if flash
+		
+		switch (type.get (id)) {
+			
+			case TEXT, BINARY:
+				
+				return cast (Type.createInstance (className.get (id), []), ByteArray);
+			
+			case IMAGE:
+				
+				var bitmapData = cast (Type.createInstance (className.get (id), []), BitmapData);
+				return bitmapData.getPixels (bitmapData.rect);
+			
+			default:
+				
+				return null;
+			
+		}
 		
 		return cast (Type.createInstance (className.get (id), []), ByteArray);
 		
@@ -718,33 +742,34 @@ class DefaultAssetLibrary extends AssetLibrary {
 	}
 	
 	
-	public override function getFont (id:String):Dynamic /*Font*/ {
+	public override function getFont (id:String):Font {
 		
-		// TODO: Complete Lime Font API
+		#if flash
 		
-		#if openfl
-		#if (flash || js)
+		var src = Type.createInstance (className.get (id), []);
+		var font = new Font (src.fontName);
+		font.src = src;
 		
-		return cast (Type.createInstance (className.get (id), []), openfl.text.Font);
+		return font;
+		
+		#elseif html5
+		
+		return cast (Type.createInstance (className.get (id), []), Font);
 		
 		#else
 		
 		if (className.exists (id)) {
 			
 			var fontClass = className.get (id);
-			openfl.text.Font.registerFont (fontClass);
-			return cast (Type.createInstance (fontClass, []), openfl.text.Font);
+			return cast (Type.createInstance (fontClass, []), Font);
 			
 		} else {
 			
-			return new openfl.text.Font (path.get (id));
+			return Font.fromFile (path.get (id));
 			
 		}
 		
 		#end
-		#end
-		
-		return null;
 		
 	}
 	
@@ -761,7 +786,16 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		#else
 		
-		return Image.fromFile (path.get (id));
+		if (className.exists (id)) {
+			
+			var fontClass = className.get (id);
+			return cast (Type.createInstance (fontClass, []), Image);
+			
+		} else {
+			
+			return Image.fromFile (path.get (id));
+			
+		}
 		
 		#end
 		
@@ -869,11 +903,11 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		#if flash
 		
-		if (requestedType != AssetType.MUSIC && requestedType != AssetType.SOUND) {
+		//if (requestedType != AssetType.MUSIC && requestedType != AssetType.SOUND) {
 			
 			return className.exists (id);
 			
-		}
+		//}
 		
 		#end
 		
@@ -904,26 +938,24 @@ class DefaultAssetLibrary extends AssetLibrary {
 	
 	public override function loadAudioBuffer (id:String, handler:AudioBuffer -> Void):Void {
 		
-		#if (flash || js)
-		
-		//if (path.exists (id)) {
+		#if (flash)
+		if (path.exists (id)) {
 			
-		//	var loader = new Loader ();
-		//	loader.contentLoaderInfo.addEventListener (Event.COMPLETE, function (event) {
+			var soundLoader = new Sound ();
+			soundLoader.addEventListener (Event.COMPLETE, function (event) {
 				
-		//		handler (cast (event.currentTarget.content, Bitmap).bitmapData);
+				var audioBuffer:AudioBuffer = new AudioBuffer();
+				audioBuffer.src = event.currentTarget;
+				handler (audioBuffer);
 				
-		//	});
-		//	loader.load (new URLRequest (path.get (id)));
+			});
+			soundLoader.load (new URLRequest (path.get (id)));
 			
-		//} else {
-			
+		} else {
 			handler (getAudioBuffer (id));
 			
-		//}
-		
+		}
 		#else
-		
 		handler (getAudioBuffer (id));
 		
 		#end
@@ -1056,7 +1088,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 	
 	/*public override function loadMusic (id:String, handler:Dynamic -> Void):Void {
 		
-		#if (flash || js)
+		#if (flash || html5)
 		
 		//if (path.exists (id)) {
 			
@@ -1186,7 +1218,6 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 #elseif html5
 
-#if openfl
 
 
 
@@ -1238,69 +1269,70 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 
-#end
 
 #else
 
-#if openfl
 
-#end
 
 #if (windows || mac || linux)
 
 
-@:bitmap("assets/img/Game Mode/ClassicModeButton.png") class __ASSET__img_game_mode_classicmodebutton_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Game Mode/ClassicModeButtonHover.png") class __ASSET__img_game_mode_classicmodebuttonhover_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Game Mode/GameModeBackground.png") class __ASSET__img_game_mode_gamemodebackground_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Game Mode/Left.png") class __ASSET__img_game_mode_left_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Game Mode/Right.png") class __ASSET__img_game_mode_right_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Game Mode/RushModeButton.png") class __ASSET__img_game_mode_rushmodebutton_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Game Mode/RushModeButtonHover.png") class __ASSET__img_game_mode_rushmodebuttonhover_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Game Mode/Storm.png") class __ASSET__img_game_mode_storm_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Game Mode/StormHover.png") class __ASSET__img_game_mode_stormhover_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Game Over/MainMenu.png") class __ASSET__img_game_over_mainmenu_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Game Over/Retry.png") class __ASSET__img_game_over_retry_png extends lime.graphics.Image {}
-@:bitmap("assets/img/In-Game/Coin.png") class __ASSET__img_in_game_coin_png extends lime.graphics.Image {}
-@:bitmap("assets/img/In-Game/Enemy1.png") class __ASSET__img_in_game_enemy1_png extends lime.graphics.Image {}
-@:bitmap("assets/img/In-Game/Enemy2.png") class __ASSET__img_in_game_enemy2_png extends lime.graphics.Image {}
-@:bitmap("assets/img/In-Game/Enemy3.png") class __ASSET__img_in_game_enemy3_png extends lime.graphics.Image {}
-@:bitmap("assets/img/In-Game/ExplodingEnemy.png") class __ASSET__img_in_game_explodingenemy_png extends lime.graphics.Image {}
-@:bitmap("assets/img/In-Game/GameBackground.png") class __ASSET__img_in_game_gamebackground_png extends lime.graphics.Image {}
-@:bitmap("assets/img/In-Game/InvisEnemy.png") class __ASSET__img_in_game_invisenemy_png extends lime.graphics.Image {}
-@:bitmap("assets/img/In-Game/MissileEnemy.png") class __ASSET__img_in_game_missileenemy_png extends lime.graphics.Image {}
-@:bitmap("assets/img/In-Game/Player.png") class __ASSET__img_in_game_player_png extends lime.graphics.Image {}
-@:bitmap("assets/img/In-Game/SineEnemy.png") class __ASSET__img_in_game_sineenemy_png extends lime.graphics.Image {}
-@:bitmap("assets/img/In-Game/SizePU.png") class __ASSET__img_in_game_sizepu_png extends lime.graphics.Image {}
-@:bitmap("assets/img/In-Game/SlowMotionBlur.png") class __ASSET__img_in_game_slowmotionblur_png extends lime.graphics.Image {}
-@:bitmap("assets/img/In-Game/Sound.png") class __ASSET__img_in_game_sound_png extends lime.graphics.Image {}
-@:bitmap("assets/img/In-Game/SoundOff.png") class __ASSET__img_in_game_soundoff_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Menu/CreditsButton.png") class __ASSET__img_menu_creditsbutton_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Menu/CreditsButtonHover.png") class __ASSET__img_menu_creditsbuttonhover_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Menu/CreditsScreen.png") class __ASSET__img_menu_creditsscreen_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Menu/GameOverBG.png") class __ASSET__img_menu_gameoverbg_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Menu/HelpButton.png") class __ASSET__img_menu_helpbutton_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Menu/HelpButtonHover.png") class __ASSET__img_menu_helpbuttonhover_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Menu/HelpScreen.png") class __ASSET__img_menu_helpscreen_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Menu/MenuBackground.png") class __ASSET__img_menu_menubackground_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Menu/PlayButton.png") class __ASSET__img_menu_playbutton_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Menu/PlayButtonHover.png") class __ASSET__img_menu_playbuttonhover_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Numbers/0.png") class __ASSET__img_numbers_0_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Numbers/1.png") class __ASSET__img_numbers_1_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Numbers/2.png") class __ASSET__img_numbers_2_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Numbers/3.png") class __ASSET__img_numbers_3_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Numbers/4.png") class __ASSET__img_numbers_4_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Numbers/5.png") class __ASSET__img_numbers_5_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Numbers/6.png") class __ASSET__img_numbers_6_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Numbers/7.png") class __ASSET__img_numbers_7_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Numbers/8.png") class __ASSET__img_numbers_8_png extends lime.graphics.Image {}
-@:bitmap("assets/img/Numbers/9.png") class __ASSET__img_numbers_9_png extends lime.graphics.Image {}
-@:sound("assets/sound/coin.mp3") class __ASSET__sound_coin_mp3 extends lime.audio.AudioSource {}
-@:sound("assets/sound/DarknessOfForever.mp3") class __ASSET__sound_darknessofforever_mp3 extends lime.audio.AudioSource {}
-@:sound("assets/sound/death.mp3") class __ASSET__sound_death_mp3 extends lime.audio.AudioSource {}
-@:sound("assets/sound/power.mp3") class __ASSET__sound_power_mp3 extends lime.audio.AudioSource {}
-@:sound("assets/sound/slowmo.mp3") class __ASSET__sound_slowmo_mp3 extends lime.audio.AudioSource {}
+@:image("assets/img/Game Mode/ClassicModeButton.png") #if display private #end class __ASSET__img_game_mode_classicmodebutton_png extends lime.graphics.Image {}
+@:image("assets/img/Game Mode/ClassicModeButtonHover.png") #if display private #end class __ASSET__img_game_mode_classicmodebuttonhover_png extends lime.graphics.Image {}
+@:image("assets/img/Game Mode/GameModeBackground.png") #if display private #end class __ASSET__img_game_mode_gamemodebackground_png extends lime.graphics.Image {}
+@:image("assets/img/Game Mode/Left.png") #if display private #end class __ASSET__img_game_mode_left_png extends lime.graphics.Image {}
+@:image("assets/img/Game Mode/Right.png") #if display private #end class __ASSET__img_game_mode_right_png extends lime.graphics.Image {}
+@:image("assets/img/Game Mode/RushModeButton.png") #if display private #end class __ASSET__img_game_mode_rushmodebutton_png extends lime.graphics.Image {}
+@:image("assets/img/Game Mode/RushModeButtonHover.png") #if display private #end class __ASSET__img_game_mode_rushmodebuttonhover_png extends lime.graphics.Image {}
+@:image("assets/img/Game Mode/Storm.png") #if display private #end class __ASSET__img_game_mode_storm_png extends lime.graphics.Image {}
+@:image("assets/img/Game Mode/StormHover.png") #if display private #end class __ASSET__img_game_mode_stormhover_png extends lime.graphics.Image {}
+@:image("assets/img/Game Over/MainMenu.png") #if display private #end class __ASSET__img_game_over_mainmenu_png extends lime.graphics.Image {}
+@:image("assets/img/Game Over/Retry.png") #if display private #end class __ASSET__img_game_over_retry_png extends lime.graphics.Image {}
+@:image("assets/img/In-Game/Coin.png") #if display private #end class __ASSET__img_in_game_coin_png extends lime.graphics.Image {}
+@:image("assets/img/In-Game/Enemy1.png") #if display private #end class __ASSET__img_in_game_enemy1_png extends lime.graphics.Image {}
+@:image("assets/img/In-Game/Enemy2.png") #if display private #end class __ASSET__img_in_game_enemy2_png extends lime.graphics.Image {}
+@:image("assets/img/In-Game/Enemy3.png") #if display private #end class __ASSET__img_in_game_enemy3_png extends lime.graphics.Image {}
+@:image("assets/img/In-Game/ExplodingEnemy.png") #if display private #end class __ASSET__img_in_game_explodingenemy_png extends lime.graphics.Image {}
+@:image("assets/img/In-Game/GameBackground.png") #if display private #end class __ASSET__img_in_game_gamebackground_png extends lime.graphics.Image {}
+@:image("assets/img/In-Game/InvisEnemy.png") #if display private #end class __ASSET__img_in_game_invisenemy_png extends lime.graphics.Image {}
+@:image("assets/img/In-Game/MissileEnemy.png") #if display private #end class __ASSET__img_in_game_missileenemy_png extends lime.graphics.Image {}
+@:image("assets/img/In-Game/Player.png") #if display private #end class __ASSET__img_in_game_player_png extends lime.graphics.Image {}
+@:image("assets/img/In-Game/SineEnemy.png") #if display private #end class __ASSET__img_in_game_sineenemy_png extends lime.graphics.Image {}
+@:image("assets/img/In-Game/SizePU.png") #if display private #end class __ASSET__img_in_game_sizepu_png extends lime.graphics.Image {}
+@:image("assets/img/In-Game/SlowMotionBlur.png") #if display private #end class __ASSET__img_in_game_slowmotionblur_png extends lime.graphics.Image {}
+@:image("assets/img/In-Game/Sound.png") #if display private #end class __ASSET__img_in_game_sound_png extends lime.graphics.Image {}
+@:image("assets/img/In-Game/SoundOff.png") #if display private #end class __ASSET__img_in_game_soundoff_png extends lime.graphics.Image {}
+@:image("assets/img/Menu/CreditsButton.png") #if display private #end class __ASSET__img_menu_creditsbutton_png extends lime.graphics.Image {}
+@:image("assets/img/Menu/CreditsButtonHover.png") #if display private #end class __ASSET__img_menu_creditsbuttonhover_png extends lime.graphics.Image {}
+@:image("assets/img/Menu/CreditsScreen.png") #if display private #end class __ASSET__img_menu_creditsscreen_png extends lime.graphics.Image {}
+@:image("assets/img/Menu/GameOverBG.png") #if display private #end class __ASSET__img_menu_gameoverbg_png extends lime.graphics.Image {}
+@:image("assets/img/Menu/HelpButton.png") #if display private #end class __ASSET__img_menu_helpbutton_png extends lime.graphics.Image {}
+@:image("assets/img/Menu/HelpButtonHover.png") #if display private #end class __ASSET__img_menu_helpbuttonhover_png extends lime.graphics.Image {}
+@:image("assets/img/Menu/HelpScreen.png") #if display private #end class __ASSET__img_menu_helpscreen_png extends lime.graphics.Image {}
+@:image("assets/img/Menu/MenuBackground.png") #if display private #end class __ASSET__img_menu_menubackground_png extends lime.graphics.Image {}
+@:image("assets/img/Menu/PlayButton.png") #if display private #end class __ASSET__img_menu_playbutton_png extends lime.graphics.Image {}
+@:image("assets/img/Menu/PlayButtonHover.png") #if display private #end class __ASSET__img_menu_playbuttonhover_png extends lime.graphics.Image {}
+@:image("assets/img/Numbers/0.png") #if display private #end class __ASSET__img_numbers_0_png extends lime.graphics.Image {}
+@:image("assets/img/Numbers/1.png") #if display private #end class __ASSET__img_numbers_1_png extends lime.graphics.Image {}
+@:image("assets/img/Numbers/2.png") #if display private #end class __ASSET__img_numbers_2_png extends lime.graphics.Image {}
+@:image("assets/img/Numbers/3.png") #if display private #end class __ASSET__img_numbers_3_png extends lime.graphics.Image {}
+@:image("assets/img/Numbers/4.png") #if display private #end class __ASSET__img_numbers_4_png extends lime.graphics.Image {}
+@:image("assets/img/Numbers/5.png") #if display private #end class __ASSET__img_numbers_5_png extends lime.graphics.Image {}
+@:image("assets/img/Numbers/6.png") #if display private #end class __ASSET__img_numbers_6_png extends lime.graphics.Image {}
+@:image("assets/img/Numbers/7.png") #if display private #end class __ASSET__img_numbers_7_png extends lime.graphics.Image {}
+@:image("assets/img/Numbers/8.png") #if display private #end class __ASSET__img_numbers_8_png extends lime.graphics.Image {}
+@:image("assets/img/Numbers/9.png") #if display private #end class __ASSET__img_numbers_9_png extends lime.graphics.Image {}
+@:file("assets/sound/coin.mp3") #if display private #end class __ASSET__sound_coin_mp3 extends lime.utils.ByteArray {}
+@:file("assets/sound/DarknessOfForever.mp3") #if display private #end class __ASSET__sound_darknessofforever_mp3 extends lime.utils.ByteArray {}
+@:file("assets/sound/death.mp3") #if display private #end class __ASSET__sound_death_mp3 extends lime.utils.ByteArray {}
+@:file("assets/sound/power.mp3") #if display private #end class __ASSET__sound_power_mp3 extends lime.utils.ByteArray {}
+@:file("assets/sound/slowmo.mp3") #if display private #end class __ASSET__sound_slowmo_mp3 extends lime.utils.ByteArray {}
 
 
+
+#end
+
+#if openfl
 
 #end
 

@@ -1,5 +1,7 @@
-import lime.Assets;
 #if !macro
+
+
+@:access(lime.Assets)
 
 
 class ApplicationMain {
@@ -8,13 +10,18 @@ class ApplicationMain {
 	public static var config:lime.app.Config;
 	public static var preloader:openfl.display.Preloader;
 	
-	private static var app:lime.app.Application;
-	
 	
 	public static function create ():Void {
 		
-		app = new openfl.display.Application ();
+		var app = new lime.app.Application ();
 		app.create (config);
+		openfl.Lib.application = app;
+		
+		#if !flash
+		var stage = new openfl.display.Stage (app.window.width, app.window.height, config.background);
+		stage.addChild (openfl.Lib.current);
+		app.addModule (stage);
+		#end
 		
 		var display = new NMEPreloader ();
 		
@@ -22,218 +29,232 @@ class ApplicationMain {
 		preloader.onComplete = init;
 		preloader.create (config);
 		
-		#if js
+		#if (js && html5)
 		var urls = [];
 		var types = [];
 		
 		
 		urls.push ("img/Game Mode/ClassicModeButton.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Game Mode/ClassicModeButtonHover.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Game Mode/GameModeBackground.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Game Mode/Left.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Game Mode/Right.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Game Mode/RushModeButton.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Game Mode/RushModeButtonHover.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Game Mode/Storm.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Game Mode/StormHover.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Game Over/MainMenu.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Game Over/Retry.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/In-Game/Coin.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/In-Game/Enemy1.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/In-Game/Enemy2.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/In-Game/Enemy3.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/In-Game/ExplodingEnemy.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/In-Game/GameBackground.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/In-Game/InvisEnemy.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/In-Game/MissileEnemy.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/In-Game/Player.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/In-Game/SineEnemy.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/In-Game/SizePU.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/In-Game/SlowMotionBlur.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/In-Game/Sound.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/In-Game/SoundOff.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Menu/CreditsButton.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Menu/CreditsButtonHover.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Menu/CreditsScreen.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Menu/GameOverBG.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Menu/HelpButton.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Menu/HelpButtonHover.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Menu/HelpScreen.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Menu/MenuBackground.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Menu/PlayButton.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Menu/PlayButtonHover.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Numbers/0.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Numbers/1.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Numbers/2.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Numbers/3.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Numbers/4.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Numbers/5.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Numbers/6.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Numbers/7.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Numbers/8.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("img/Numbers/9.png");
-		types.push (AssetType.IMAGE);
+		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("sound/coin.mp3");
-		types.push (AssetType.MUSIC);
+		types.push (lime.Assets.AssetType.MUSIC);
 		
 		
 		urls.push ("sound/DarknessOfForever.mp3");
-		types.push (AssetType.MUSIC);
+		types.push (lime.Assets.AssetType.MUSIC);
 		
 		
 		urls.push ("sound/death.mp3");
-		types.push (AssetType.MUSIC);
+		types.push (lime.Assets.AssetType.MUSIC);
 		
 		
 		urls.push ("sound/power.mp3");
-		types.push (AssetType.MUSIC);
+		types.push (lime.Assets.AssetType.MUSIC);
 		
 		
 		urls.push ("sound/slowmo.mp3");
-		types.push (AssetType.MUSIC);
+		types.push (lime.Assets.AssetType.MUSIC);
 		
 		
+		
+		if (config.assetsPrefix != null) {
+			
+			for (i in 0...urls.length) {
+				
+				if (types[i] != lime.Assets.AssetType.FONT) {
+					
+					urls[i] = config.assetsPrefix + urls[i];
+					
+				}
+				
+			}
+			
+		}
 		
 		preloader.load (urls, types);
 		#end
 		
 		var result = app.exec ();
 		
-		#if sys
+		#if (sys && !emscripten)
 		Sys.exit (result);
 		#end
 		
@@ -276,22 +297,26 @@ class ApplicationMain {
 			antialiasing: Std.int (0),
 			background: Std.int (16777215),
 			borderless: false,
+			company: "Solarfly Studios",
 			depthBuffer: false,
+			file: "Time4You",
 			fps: Std.int (60),
 			fullscreen: false,
 			height: Std.int (480),
 			orientation: "",
+			packageName: "kalakuh.time4you.Time4You",
 			resizable: true,
-			stencilBuffer: false,
+			stencilBuffer: true,
 			title: "Time4You",
+			version: "1.0.0",
 			vsync: false,
 			width: Std.int (640),
 			
 		}
 		
-		#if js
+		#if (js && html5)
 		#if (munit || utest)
-		flash.Lib.embed (null, 640, 480, "FFFFFF");
+		openfl.Lib.embed (null, 640, 480, "FFFFFF");
 		#end
 		#else
 		create ();
@@ -302,12 +327,10 @@ class ApplicationMain {
 	
 	public static function start ():Void {
 		
-		openfl.Lib.current.stage.align = openfl.display.StageAlign.TOP_LEFT;
-		openfl.Lib.current.stage.scaleMode = openfl.display.StageScaleMode.NO_SCALE;
-		
 		var hasMain = false;
+		var entryPoint = Type.resolveClass ("kalakuh.time4you.Main");
 		
-		for (methodName in Type.getClassFields (kalakuh.time4you.Main)) {
+		for (methodName in Type.getClassFields (entryPoint)) {
 			
 			if (methodName == "main") {
 				
@@ -318,9 +341,11 @@ class ApplicationMain {
 			
 		}
 		
+		lime.Assets.initialize ();
+		
 		if (hasMain) {
 			
-			Reflect.callMethod (kalakuh.time4you.Main, Reflect.field (kalakuh.time4you.Main, "main"), []);
+			Reflect.callMethod (entryPoint, Reflect.field (entryPoint, "main"), []);
 			
 		} else {
 			
