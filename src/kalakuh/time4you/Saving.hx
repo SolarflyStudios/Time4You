@@ -40,6 +40,6 @@ class Saving
 		coins = c;
 		saving.data.coins = coins;
 		saving.flush();
-		trace(coins + "coins collected");
+		trace(coins + " coins collected");
 	}
 }
