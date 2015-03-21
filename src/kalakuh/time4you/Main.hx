@@ -88,7 +88,6 @@ class Main extends Sprite
 				}
 			}
 		}
-		
 		// credits
 		if (credits != null) {
 			if (credits.isDestroyable()) {
