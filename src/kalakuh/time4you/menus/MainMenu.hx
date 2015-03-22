@@ -119,6 +119,7 @@ class MainMenu extends Screen
 				main.openMenu(EScreen.S_ModeSelection);
 				super.setTargetAlpha(0);
 				selectionIndex = 0;
+				super.setToBeDestroyed();
 			}
 		} 
 		if (mouseX >= 255 && mouseX <= 406) {
@@ -127,6 +128,7 @@ class MainMenu extends Screen
 				main.openMenu(EScreen.S_Help);
 				super.setTargetAlpha(0);
 				selectionIndex = 1;
+				super.setToBeDestroyed();
 			}
 		}
 		if (mouseX >= 187 && mouseX <= 461) {
@@ -135,6 +137,7 @@ class MainMenu extends Screen
 				main.openMenu(EScreen.S_Credits);
 				super.setTargetAlpha(0);
 				selectionIndex = 2;
+				super.setToBeDestroyed();
 			}
 		}
 	}

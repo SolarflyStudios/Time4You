@@ -76,7 +76,8 @@ class Main extends Sprite
 		// the actual object wouldn't be null after that... -_-
 		// well, let's just write the same code 6 times...
 		
-		// TODO: Could the function be inlined?
+		// Q: Could the function be inlined?
+		// A: Obviously not :(
 		
 		// main menu
 		if (mainMenu != null) {
@@ -88,6 +89,7 @@ class Main extends Sprite
 				}
 			}
 		}
+		
 		// credits
 		if (credits != null) {
 			if (credits.isDestroyable()) {
