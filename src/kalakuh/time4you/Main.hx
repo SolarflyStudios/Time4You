@@ -5,6 +5,7 @@ import flash.events.Event;
 import flash.Lib;
 import kalakuh.time4you.game.EGameMode;
 import kalakuh.time4you.game.GameManager;
+import kalakuh.time4you.upgrades.Shop;
 import openfl.media.SoundChannel;
 
 import openfl.display.Bitmap;
@@ -33,6 +34,8 @@ class Main extends Sprite
 	private var mSelection : ModeSelection;
 	private var game : GameManager;
 	private var gOver : GameOver;
+	private var shop : Shop;
+	
 	private static var sound : Sound;
 	private static var channel : SoundChannel;
 	
@@ -144,6 +147,17 @@ class Main extends Sprite
 				}
 			}
 		}
+		
+		// shop
+		if (shop != null) {
+			if (shop.isDestroyable()) {
+				if (shop.alpha < 0.1) {
+					shop.onDestroy();
+					removeChild(shop);
+					shop = null;
+				}
+			}
+		}
 	}
 	
 	public function openMenu (menu : EScreen) : Void {
@@ -164,6 +178,10 @@ class Main extends Sprite
 				mSelection = new ModeSelection();
 				mSelection.setTargetAlpha(1);
 				addChild(mSelection);
+			case EScreen.S_Shop:
+				shop = new Shop();
+				shop.setTargetAlpha(1);
+				addChild(shop);
 			default:
 		}
 	}
@@ -204,9 +222,9 @@ class Main extends Sprite
 		stage.addEventListener(Event.RESIZE, resize);
 		
 		#if ios
-		haxe.Timer.delay(init, 100); // iOS 6
+			haxe.Timer.delay(init, 100); // iOS 6
 		#else
-		init();
+			init();
 		#end
 	}
 	

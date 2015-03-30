@@ -1,4 +1,4 @@
-package kalakuh.time4you.menus ;
+package kalakuh.time4you.menus;
 
 import kalakuh.time4you.Main;
 import openfl.display.Sprite;
@@ -20,6 +20,7 @@ class MainMenu extends Screen
 	private var credits : Bitmap;
 	private var help : Bitmap;
 	private var play : Bitmap;
+	private var shop : Bitmap;
 	private var buttonContainer : Sprite;
 	
 	private var background : Bitmap;
@@ -37,19 +38,28 @@ class MainMenu extends Screen
 		
 		background = new Bitmap(Assets.getBitmapData("img/Menu/MenuBackground.png"));
 		
+		// TODO: function for this
 		switch (selectionIndex) {
 			case 0:
 				play = new Bitmap(Assets.getBitmapData("img/Menu/PlayButtonHover.png"));
 				help = new Bitmap(Assets.getBitmapData("img/Menu/HelpButton.png"));
 				credits = new Bitmap(Assets.getBitmapData("img/Menu/CreditsButton.png"));
+				shop = new Bitmap(Assets.getBitmapData("img/Menu/ShopButton.png"));
 			case 1:
 				play = new Bitmap(Assets.getBitmapData("img/Menu/PlayButton.png"));
 				help = new Bitmap(Assets.getBitmapData("img/Menu/HelpButtonHover.png"));
 				credits = new Bitmap(Assets.getBitmapData("img/Menu/CreditsButton.png"));
+				shop = new Bitmap(Assets.getBitmapData("img/Menu/ShopButton.png"));
 			case 2:
 				play = new Bitmap(Assets.getBitmapData("img/Menu/PlayButton.png"));
 				help = new Bitmap(Assets.getBitmapData("img/Menu/HelpButton.png"));
 				credits = new Bitmap(Assets.getBitmapData("img/Menu/CreditsButtonHover.png"));
+				shop = new Bitmap(Assets.getBitmapData("img/Menu/ShopButton.png"));
+			case 3:
+				play = new Bitmap(Assets.getBitmapData("img/Menu/PlayButton.png"));
+				help = new Bitmap(Assets.getBitmapData("img/Menu/HelpButton.png"));
+				credits = new Bitmap(Assets.getBitmapData("img/Menu/CreditsButton.png"));
+				shop = new Bitmap(Assets.getBitmapData("img/Menu/ShopButtonHover.png"));
 			default:
 		}
 		
@@ -62,12 +72,14 @@ class MainMenu extends Screen
 		buttonContainer.addChild(play);
 		buttonContainer.addChild(help);
 		buttonContainer.addChild(credits);
+		buttonContainer.addChild(shop);
 		buttonContainer.x = stage.stageWidth / 2;
 		buttonContainer.y = stage.stageHeight / 2;
 		
 		center(play);
 		center(help);
 		center(credits);
+		center(shop);
 		
 		addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
 		addEventListener(MouseEvent.CLICK, onClick);
@@ -91,6 +103,11 @@ class MainMenu extends Screen
 				selectionIndex = 2;
 			}
 		}
+		if (mouseX >= 251 && mouseX <= 397) {
+			if (mouseY >= 366 && mouseY <= 409) {
+				selectionIndex = 3;
+			}
+		}
 		
 		if (index != selectionIndex) {
 			switch (selectionIndex) {
@@ -98,14 +115,22 @@ class MainMenu extends Screen
 					play.bitmapData = Assets.getBitmapData("img/Menu/PlayButtonHover.png");
 					help.bitmapData = Assets.getBitmapData("img/Menu/HelpButton.png");
 					credits.bitmapData = Assets.getBitmapData("img/Menu/CreditsButton.png");
+					shop.bitmapData = Assets.getBitmapData("img/Menu/ShopButton.png");
 				case 1:
 					play.bitmapData = Assets.getBitmapData("img/Menu/PlayButton.png");
 					help.bitmapData = Assets.getBitmapData("img/Menu/HelpButtonHover.png");
 					credits.bitmapData = Assets.getBitmapData("img/Menu/CreditsButton.png");
+					shop.bitmapData = Assets.getBitmapData("img/Menu/ShopButton.png");
 				case 2:
 					play.bitmapData = Assets.getBitmapData("img/Menu/PlayButton.png");
 					help.bitmapData = Assets.getBitmapData("img/Menu/HelpButton.png");
 					credits.bitmapData = Assets.getBitmapData("img/Menu/CreditsButtonHover.png");
+					shop.bitmapData = Assets.getBitmapData("img/Menu/ShopButton.png");
+				case 3:
+					play.bitmapData = Assets.getBitmapData("img/Menu/PlayButton.png");
+					help.bitmapData = Assets.getBitmapData("img/Menu/HelpButton.png");
+					credits.bitmapData = Assets.getBitmapData("img/Menu/CreditsButton.png");
+					shop.bitmapData = Assets.getBitmapData("img/Menu/ShopButtonHover.png");
 				default:
 			}
 			center(play);
@@ -140,6 +165,15 @@ class MainMenu extends Screen
 				super.setToBeDestroyed();
 			}
 		}
+		if (mouseX >= 251 && mouseX <= 397) {
+			if (mouseY >= 366 && mouseY <= 409) {
+				var main : Main = cast parent;
+				main.openMenu(EScreen.S_Shop);
+				super.setTargetAlpha(0);
+				selectionIndex = 3;
+				super.setToBeDestroyed();
+			}
+		}
 	}
 	
 	private function onKeyDown (e : KeyboardEvent) {
@@ -154,6 +188,8 @@ class MainMenu extends Screen
 						main.openMenu(EScreen.S_Help);
 					case 2:
 						main.openMenu(EScreen.S_Credits);
+					case 3:
+						main.openMenu(EScreen.S_Credits);
 					default:
 						
 				}
@@ -161,10 +197,10 @@ class MainMenu extends Screen
 			} else {
 				if (e.keyCode == Keyboard.W || e.keyCode == Keyboard.UP) {
 					selectionIndex--;
-					if (selectionIndex < 0) selectionIndex = 2;
+					if (selectionIndex < 0) selectionIndex = 3;
 				} else if (e.keyCode == Keyboard.S || e.keyCode == Keyboard.DOWN) {
 					selectionIndex++;
-					if (selectionIndex > 2) selectionIndex = 0;
+					if (selectionIndex > 3) selectionIndex = 0;
 				}
 				
 				switch (selectionIndex) 
@@ -173,14 +209,22 @@ class MainMenu extends Screen
 						play.bitmapData = Assets.getBitmapData("img/Menu/PlayButtonHover.png");
 						help.bitmapData = Assets.getBitmapData("img/Menu/HelpButton.png");
 						credits.bitmapData = Assets.getBitmapData("img/Menu/CreditsButton.png");
+						shop.bitmapData = Assets.getBitmapData("img/Menu/ShopButton.png");
 					case 1:
 						play.bitmapData = Assets.getBitmapData("img/Menu/PlayButton.png");
 						help.bitmapData = Assets.getBitmapData("img/Menu/HelpButtonHover.png");
 						credits.bitmapData = Assets.getBitmapData("img/Menu/CreditsButton.png");
+						shop.bitmapData = Assets.getBitmapData("img/Menu/ShopButton.png");
 					case 2:
 						play.bitmapData = Assets.getBitmapData("img/Menu/PlayButton.png");
 						help.bitmapData = Assets.getBitmapData("img/Menu/HelpButton.png");
 						credits.bitmapData = Assets.getBitmapData("img/Menu/CreditsButtonHover.png");
+						shop.bitmapData = Assets.getBitmapData("img/Menu/ShopButton.png");
+					case 3:
+						play.bitmapData = Assets.getBitmapData("img/Menu/PlayButton.png");
+						help.bitmapData = Assets.getBitmapData("img/Menu/HelpButton.png");
+						credits.bitmapData = Assets.getBitmapData("img/Menu/CreditsButton.png");
+						shop.bitmapData = Assets.getBitmapData("img/Menu/ShopButtonHover.png");
 					default:
 				}
 				
@@ -202,11 +246,13 @@ class MainMenu extends Screen
 		buttonContainer.removeChild(play);
 		buttonContainer.removeChild(help);
 		buttonContainer.removeChild(credits);
+		buttonContainer.removeChild(shop);
 		removeChild(buttonContainer);
 		buttonContainer = null;
 		credits = null;
 		play = null;
 		help = null;
+		shop = null;
 		
 		removeChild(background);
 		background = null;

@@ -115,6 +115,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("img/Menu/PlayButton.png", AssetType.IMAGE);
 		className.set ("img/Menu/PlayButtonHover.png", __ASSET__img_menu_playbuttonhover_png);
 		type.set ("img/Menu/PlayButtonHover.png", AssetType.IMAGE);
+		className.set ("img/Menu/ShopButton.png", __ASSET__img_menu_shopbutton_png);
+		type.set ("img/Menu/ShopButton.png", AssetType.IMAGE);
+		className.set ("img/Menu/ShopButtonHover.png", __ASSET__img_menu_shopbuttonhover_png);
+		type.set ("img/Menu/ShopButtonHover.png", AssetType.IMAGE);
 		className.set ("img/Numbers/0.png", __ASSET__img_numbers_0_png);
 		type.set ("img/Numbers/0.png", AssetType.IMAGE);
 		className.set ("img/Numbers/1.png", __ASSET__img_numbers_1_png);
@@ -135,6 +139,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("img/Numbers/8.png", AssetType.IMAGE);
 		className.set ("img/Numbers/9.png", __ASSET__img_numbers_9_png);
 		type.set ("img/Numbers/9.png", AssetType.IMAGE);
+		className.set ("img/Shop/upgradesBG.png", __ASSET__img_shop_upgradesbg_png);
+		type.set ("img/Shop/upgradesBG.png", AssetType.IMAGE);
 		className.set ("sound/coin.mp3", __ASSET__sound_coin_mp3);
 		type.set ("sound/coin.mp3", AssetType.MUSIC);
 		className.set ("sound/DarknessOfForever.mp3", __ASSET__sound_darknessofforever_mp3);
@@ -290,6 +296,14 @@ class DefaultAssetLibrary extends AssetLibrary {
 		path.set (id, id);
 		
 		type.set (id, AssetType.IMAGE);
+		id = "img/Menu/ShopButton.png";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "img/Menu/ShopButtonHover.png";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
 		id = "img/Numbers/0.png";
 		path.set (id, id);
 		
@@ -330,6 +344,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 		path.set (id, id);
 		
 		type.set (id, AssetType.IMAGE);
+		id = "img/Shop/upgradesBG.png";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
 		id = "sound/coin.mp3";
 		path.set (id, id);
 		
@@ -362,6 +380,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 		#else
 		
 		#if openfl
+		
+		
+		
 		
 		
 		
@@ -525,6 +546,12 @@ class DefaultAssetLibrary extends AssetLibrary {
 		className.set ("img/Menu/PlayButtonHover.png", __ASSET__img_menu_playbuttonhover_png);
 		type.set ("img/Menu/PlayButtonHover.png", AssetType.IMAGE);
 		
+		className.set ("img/Menu/ShopButton.png", __ASSET__img_menu_shopbutton_png);
+		type.set ("img/Menu/ShopButton.png", AssetType.IMAGE);
+		
+		className.set ("img/Menu/ShopButtonHover.png", __ASSET__img_menu_shopbuttonhover_png);
+		type.set ("img/Menu/ShopButtonHover.png", AssetType.IMAGE);
+		
 		className.set ("img/Numbers/0.png", __ASSET__img_numbers_0_png);
 		type.set ("img/Numbers/0.png", AssetType.IMAGE);
 		
@@ -554,6 +581,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		className.set ("img/Numbers/9.png", __ASSET__img_numbers_9_png);
 		type.set ("img/Numbers/9.png", AssetType.IMAGE);
+		
+		className.set ("img/Shop/upgradesBG.png", __ASSET__img_shop_upgradesbg_png);
+		type.set ("img/Shop/upgradesBG.png", AssetType.IMAGE);
 		
 		className.set ("sound/coin.mp3", __ASSET__sound_coin_mp3);
 		type.set ("sound/coin.mp3", AssetType.MUSIC);
@@ -747,9 +777,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 		#if flash
 		
 		var src = Type.createInstance (className.get (id), []);
+		
 		var font = new Font (src.fontName);
 		font.src = src;
-		
 		return font;
 		
 		#elseif html5
@@ -1039,6 +1069,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 			var bytes = ByteArray.readFile ("assets/manifest");
 			#elseif (mac && java)
 			var bytes = ByteArray.readFile ("../Resources/manifest");
+			#elseif ios
+			var bytes = ByteArray.readFile ("assets/manifest");
 			#else
 			var bytes = ByteArray.readFile ("manifest");
 			#end
@@ -1059,7 +1091,11 @@ class DefaultAssetLibrary extends AssetLibrary {
 							
 							if (!className.exists (asset.id)) {
 								
+								#if ios
+								path.set (asset.id, "assets/" + asset.path);
+								#else
 								path.set (asset.id, asset.path);
+								#end
 								type.set (asset.id, cast (asset.type, AssetType));
 								
 							}
@@ -1199,6 +1235,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep @:bind #if display private #end class __ASSET__img_menu_menubackground_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_menu_playbutton_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_menu_playbuttonhover_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_menu_shopbutton_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_menu_shopbuttonhover_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_numbers_0_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_numbers_1_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_numbers_2_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
@@ -1209,6 +1247,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep @:bind #if display private #end class __ASSET__img_numbers_7_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_numbers_8_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_numbers_9_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_shop_upgradesbg_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__sound_coin_mp3 extends flash.media.Sound { }
 @:keep @:bind #if display private #end class __ASSET__sound_darknessofforever_mp3 extends flash.media.Sound { }
 @:keep @:bind #if display private #end class __ASSET__sound_death_mp3 extends flash.media.Sound { }
@@ -1217,6 +1256,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 #elseif html5
+
+
+
 
 
 
@@ -1312,6 +1354,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:image("assets/img/Menu/MenuBackground.png") #if display private #end class __ASSET__img_menu_menubackground_png extends lime.graphics.Image {}
 @:image("assets/img/Menu/PlayButton.png") #if display private #end class __ASSET__img_menu_playbutton_png extends lime.graphics.Image {}
 @:image("assets/img/Menu/PlayButtonHover.png") #if display private #end class __ASSET__img_menu_playbuttonhover_png extends lime.graphics.Image {}
+@:image("assets/img/Menu/ShopButton.png") #if display private #end class __ASSET__img_menu_shopbutton_png extends lime.graphics.Image {}
+@:image("assets/img/Menu/ShopButtonHover.png") #if display private #end class __ASSET__img_menu_shopbuttonhover_png extends lime.graphics.Image {}
 @:image("assets/img/Numbers/0.png") #if display private #end class __ASSET__img_numbers_0_png extends lime.graphics.Image {}
 @:image("assets/img/Numbers/1.png") #if display private #end class __ASSET__img_numbers_1_png extends lime.graphics.Image {}
 @:image("assets/img/Numbers/2.png") #if display private #end class __ASSET__img_numbers_2_png extends lime.graphics.Image {}
@@ -1322,6 +1366,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:image("assets/img/Numbers/7.png") #if display private #end class __ASSET__img_numbers_7_png extends lime.graphics.Image {}
 @:image("assets/img/Numbers/8.png") #if display private #end class __ASSET__img_numbers_8_png extends lime.graphics.Image {}
 @:image("assets/img/Numbers/9.png") #if display private #end class __ASSET__img_numbers_9_png extends lime.graphics.Image {}
+@:image("assets/img/Shop/upgradesBG.png") #if display private #end class __ASSET__img_shop_upgradesbg_png extends lime.graphics.Image {}
 @:file("assets/sound/coin.mp3") #if display private #end class __ASSET__sound_coin_mp3 extends lime.utils.ByteArray {}
 @:file("assets/sound/DarknessOfForever.mp3") #if display private #end class __ASSET__sound_darknessofforever_mp3 extends lime.utils.ByteArray {}
 @:file("assets/sound/death.mp3") #if display private #end class __ASSET__sound_death_mp3 extends lime.utils.ByteArray {}

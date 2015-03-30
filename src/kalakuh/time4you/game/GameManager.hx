@@ -18,7 +18,7 @@ import openfl.media.Sound;
  * ...
  * @author Kalakuh
  */
- 
+
 class GameManager extends Screen
 {
 	private var background : Bitmap;

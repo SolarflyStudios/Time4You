@@ -174,6 +174,14 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
+		urls.push ("img/Menu/ShopButton.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("img/Menu/ShopButtonHover.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
 		urls.push ("img/Numbers/0.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
@@ -211,6 +219,10 @@ class ApplicationMain {
 		
 		
 		urls.push ("img/Numbers/9.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("img/Shop/upgradesBG.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
@@ -254,7 +266,7 @@ class ApplicationMain {
 		
 		var result = app.exec ();
 		
-		#if (sys && !emscripten)
+		#if (sys && !nodejs && !emscripten)
 		Sys.exit (result);
 		#end
 		

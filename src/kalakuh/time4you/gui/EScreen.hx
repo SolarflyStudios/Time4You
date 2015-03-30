@@ -1,4 +1,4 @@
-package kalakuh.time4you.gui ;
+package kalakuh.time4you.gui;
 
 /**
  * @author Kalakuh
@@ -12,4 +12,5 @@ enum EScreen
 	S_ModeSelection;
 	S_Game;
 	S_GameOver;
+	S_Shop;
 }
