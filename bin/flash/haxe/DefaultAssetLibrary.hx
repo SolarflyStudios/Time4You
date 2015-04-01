@@ -139,6 +139,20 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("img/Numbers/8.png", AssetType.IMAGE);
 		className.set ("img/Numbers/9.png", __ASSET__img_numbers_9_png);
 		type.set ("img/Numbers/9.png", AssetType.IMAGE);
+		className.set ("img/Shop/GrayBar.png", __ASSET__img_shop_graybar_png);
+		type.set ("img/Shop/GrayBar.png", AssetType.IMAGE);
+		className.set ("img/Shop/SlowmoBar.png", __ASSET__img_shop_slowmobar_png);
+		type.set ("img/Shop/SlowmoBar.png", AssetType.IMAGE);
+		className.set ("img/Shop/SlowmoText.png", __ASSET__img_shop_slowmotext_png);
+		type.set ("img/Shop/SlowmoText.png", AssetType.IMAGE);
+		className.set ("img/Shop/SpawnBar.png", __ASSET__img_shop_spawnbar_png);
+		type.set ("img/Shop/SpawnBar.png", AssetType.IMAGE);
+		className.set ("img/Shop/SpawnText.png", __ASSET__img_shop_spawntext_png);
+		type.set ("img/Shop/SpawnText.png", AssetType.IMAGE);
+		className.set ("img/Shop/StaminaBar.png", __ASSET__img_shop_staminabar_png);
+		type.set ("img/Shop/StaminaBar.png", AssetType.IMAGE);
+		className.set ("img/Shop/StaminaText.png", __ASSET__img_shop_staminatext_png);
+		type.set ("img/Shop/StaminaText.png", AssetType.IMAGE);
 		className.set ("img/Shop/upgradesBG.png", __ASSET__img_shop_upgradesbg_png);
 		type.set ("img/Shop/upgradesBG.png", AssetType.IMAGE);
 		className.set ("sound/coin.mp3", __ASSET__sound_coin_mp3);
@@ -344,6 +358,34 @@ class DefaultAssetLibrary extends AssetLibrary {
 		path.set (id, id);
 		
 		type.set (id, AssetType.IMAGE);
+		id = "img/Shop/GrayBar.png";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "img/Shop/SlowmoBar.png";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "img/Shop/SlowmoText.png";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "img/Shop/SpawnBar.png";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "img/Shop/SpawnText.png";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "img/Shop/StaminaBar.png";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "img/Shop/StaminaText.png";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
 		id = "img/Shop/upgradesBG.png";
 		path.set (id, id);
 		
@@ -380,6 +422,13 @@ class DefaultAssetLibrary extends AssetLibrary {
 		#else
 		
 		#if openfl
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -581,6 +630,27 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		className.set ("img/Numbers/9.png", __ASSET__img_numbers_9_png);
 		type.set ("img/Numbers/9.png", AssetType.IMAGE);
+		
+		className.set ("img/Shop/GrayBar.png", __ASSET__img_shop_graybar_png);
+		type.set ("img/Shop/GrayBar.png", AssetType.IMAGE);
+		
+		className.set ("img/Shop/SlowmoBar.png", __ASSET__img_shop_slowmobar_png);
+		type.set ("img/Shop/SlowmoBar.png", AssetType.IMAGE);
+		
+		className.set ("img/Shop/SlowmoText.png", __ASSET__img_shop_slowmotext_png);
+		type.set ("img/Shop/SlowmoText.png", AssetType.IMAGE);
+		
+		className.set ("img/Shop/SpawnBar.png", __ASSET__img_shop_spawnbar_png);
+		type.set ("img/Shop/SpawnBar.png", AssetType.IMAGE);
+		
+		className.set ("img/Shop/SpawnText.png", __ASSET__img_shop_spawntext_png);
+		type.set ("img/Shop/SpawnText.png", AssetType.IMAGE);
+		
+		className.set ("img/Shop/StaminaBar.png", __ASSET__img_shop_staminabar_png);
+		type.set ("img/Shop/StaminaBar.png", AssetType.IMAGE);
+		
+		className.set ("img/Shop/StaminaText.png", __ASSET__img_shop_staminatext_png);
+		type.set ("img/Shop/StaminaText.png", AssetType.IMAGE);
 		
 		className.set ("img/Shop/upgradesBG.png", __ASSET__img_shop_upgradesbg_png);
 		type.set ("img/Shop/upgradesBG.png", AssetType.IMAGE);
@@ -1247,6 +1317,13 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep @:bind #if display private #end class __ASSET__img_numbers_7_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_numbers_8_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_numbers_9_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_shop_graybar_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_shop_slowmobar_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_shop_slowmotext_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_shop_spawnbar_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_shop_spawntext_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_shop_staminabar_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_shop_staminatext_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_shop_upgradesbg_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__sound_coin_mp3 extends flash.media.Sound { }
 @:keep @:bind #if display private #end class __ASSET__sound_darknessofforever_mp3 extends flash.media.Sound { }
@@ -1256,6 +1333,13 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 #elseif html5
+
+
+
+
+
+
+
 
 
 
@@ -1366,6 +1450,13 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:image("assets/img/Numbers/7.png") #if display private #end class __ASSET__img_numbers_7_png extends lime.graphics.Image {}
 @:image("assets/img/Numbers/8.png") #if display private #end class __ASSET__img_numbers_8_png extends lime.graphics.Image {}
 @:image("assets/img/Numbers/9.png") #if display private #end class __ASSET__img_numbers_9_png extends lime.graphics.Image {}
+@:image("assets/img/Shop/GrayBar.png") #if display private #end class __ASSET__img_shop_graybar_png extends lime.graphics.Image {}
+@:image("assets/img/Shop/SlowmoBar.png") #if display private #end class __ASSET__img_shop_slowmobar_png extends lime.graphics.Image {}
+@:image("assets/img/Shop/SlowmoText.png") #if display private #end class __ASSET__img_shop_slowmotext_png extends lime.graphics.Image {}
+@:image("assets/img/Shop/SpawnBar.png") #if display private #end class __ASSET__img_shop_spawnbar_png extends lime.graphics.Image {}
+@:image("assets/img/Shop/SpawnText.png") #if display private #end class __ASSET__img_shop_spawntext_png extends lime.graphics.Image {}
+@:image("assets/img/Shop/StaminaBar.png") #if display private #end class __ASSET__img_shop_staminabar_png extends lime.graphics.Image {}
+@:image("assets/img/Shop/StaminaText.png") #if display private #end class __ASSET__img_shop_staminatext_png extends lime.graphics.Image {}
 @:image("assets/img/Shop/upgradesBG.png") #if display private #end class __ASSET__img_shop_upgradesbg_png extends lime.graphics.Image {}
 @:file("assets/sound/coin.mp3") #if display private #end class __ASSET__sound_coin_mp3 extends lime.utils.ByteArray {}
 @:file("assets/sound/DarknessOfForever.mp3") #if display private #end class __ASSET__sound_darknessofforever_mp3 extends lime.utils.ByteArray {}

@@ -4,6 +4,7 @@ import openfl.display.Sprite;
 import openfl.display.Bitmap;
 import openfl.display.BitmapData;
 import openfl.events.Event;
+import openfl.Assets;
 
 /**
  * ...
@@ -13,6 +14,7 @@ class Upgrade extends Sprite
 {
 	private var bar : Bitmap;
 	private var text : Bitmap;
+	private var grayBar : Bitmap;
 	
 	public function new(bar : BitmapData, text : BitmapData, textY : Float) 
 	{
@@ -30,7 +32,12 @@ class Upgrade extends Sprite
 		
 		text.x = stage.stageWidth / 2 + 20;
 		
+		grayBar = new Bitmap(Assets.getBitmapData("img/Shop/GrayBar.png"));
+		grayBar.y = 35;
+		grayBar.x = stage.stageWidth - 30;
+		
 		addChild(bar);
 		addChild(text);
+		addChild(grayBar);
 	}
 }
