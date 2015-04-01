@@ -15,6 +15,9 @@ import openfl.events.MouseEvent;
 class Shop extends Screen
 {
 	private var background : Bitmap;
+	private var slowmo : SlowMotion;
+	private var spawnRate : SpawnRate;
+	private var stamina : Stamina;
 	
 	public function new() 
 	{
@@ -28,6 +31,18 @@ class Shop extends Screen
 		
 		background = new Bitmap(Assets.getBitmapData("img/Shop/upgradesBG.png"));
 		addChild(background);
+		
+		slowmo = new SlowMotion();
+		addChild(slowmo);
+		slowmo.y = 80;
+		
+		stamina = new Stamina();
+		addChild(stamina);
+		stamina.y = 200;
+		
+		spawnRate = new SpawnRate();
+		addChild(spawnRate);
+		spawnRate.y = 320;
 		
 		stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 		//addEventListener(MouseEvent.CLICK, onClick);
