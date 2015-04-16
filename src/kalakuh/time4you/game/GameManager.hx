@@ -13,6 +13,7 @@ import openfl.events.KeyboardEvent;
 import openfl.utils.Timer;
 import openfl.events.TimerEvent;
 import openfl.media.Sound;
+import kalakuh.time4you.upgrades.EUpgrade;
 
 /**
  * ...
@@ -37,7 +38,7 @@ class GameManager extends Screen
 	private var enemySpawnCounter : Float;
 	private var enemies : Array<Enemy>;
 	
-	private var powerSpawnCounter : Float = 2000;
+	private var powerSpawnCounter : Float = 2000 - (Saving.getUpgradeLevel(EUpgrade.Spawn) * 100);
 	private var powers : Array<PowerUp>;
 	
 	private var collectedCoins : UInt = 0;
@@ -213,26 +214,9 @@ class GameManager extends Screen
 		}
 		
 		var pSpeed : Float = player.getSpeed();
-		pixelsMoved += pSpeed;
-		powerSpawnCounter -= pSpeed;
-		if (powerSpawnCounter <= 0) {
-			powerSpawnCounter = 1500 + Math.random() * 1500;
-			var power : PowerUp;
-			// TODO
-			if (Math.random() < 1.0 / 3.0) {
-				power = new PowerUp(EPowerUp.Shrink);
-			} else if (Math.random() < 1.0 / 2.0) {
-				power = new PowerUp(EPowerUp.Shrink);
-			} else {
-				power = new PowerUp(EPowerUp.Shrink);
-			}
-			
-			addChild(power);
-			powers.push(power);
-		}
-		
 		// slow mo'
 		var slowmo : Bool = false;
+		
 		if (keysDown.indexOf(Keyboard.SPACE) != -1) {
 			if (stamina.getStamina() > 0) {
 				if (pSpeed > 1) {
@@ -246,6 +230,24 @@ class GameManager extends Screen
 			glow.setTargetAlpha(1);
 		} else {
 			glow.setTargetAlpha(0);
+		}
+		
+		pixelsMoved += pSpeed * (slowmo ? 0.5 - (0.03 * Saving.getUpgradeLevel(EUpgrade.SlowMo)) : 1);
+		powerSpawnCounter -= pSpeed * (slowmo ? 0.5 - (0.03 * Saving.getUpgradeLevel(EUpgrade.SlowMo)) : 1);
+		if (powerSpawnCounter <= 0) {
+			powerSpawnCounter = 1500 + Math.random() * 1500 - (Saving.getUpgradeLevel(EUpgrade.Spawn) * 100);
+			var power : PowerUp;
+			// TODO
+			if (Math.random() < 1.0 / 3.0) {
+				power = new PowerUp(EPowerUp.Shrink);
+			} else if (Math.random() < 1.0 / 2.0) {
+				power = new PowerUp(EPowerUp.Shrink);
+			} else {
+				power = new PowerUp(EPowerUp.Shrink);
+			}
+			
+			addChild(power);
+			powers.push(power);
 		}
 		
 		// update enemy spawn counter & spawn enemies
@@ -296,7 +298,7 @@ class GameManager extends Screen
 		// update enemies
 		var removed : UInt = 0;
 		for (e in 0...enemies.length) {
-			enemies[e - removed].update(pSpeed * (slowmo ? 0.5 : 1), player);
+			enemies[e - removed].update(pSpeed * (slowmo ? 0.5 - (0.03 * Saving.getUpgradeLevel(EUpgrade.SlowMo)) : 1), player);
 			if (enemies[e - removed].getType() == EEnemy.Hexagon) {
 				if (enemies[e - removed].getLifetime() <= 0 && enemies[e - removed].getExplode()) {
 					for (iter in 0...6) {

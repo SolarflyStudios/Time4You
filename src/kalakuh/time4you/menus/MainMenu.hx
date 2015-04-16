@@ -189,7 +189,7 @@ class MainMenu extends Screen
 					case 2:
 						main.openMenu(EScreen.S_Credits);
 					case 3:
-						main.openMenu(EScreen.S_Credits);
+						main.openMenu(EScreen.S_Shop);
 					default:
 						
 				}

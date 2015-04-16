@@ -15,14 +15,18 @@ class Upgrade extends Sprite
 	private var bar : Bitmap;
 	private var text : Bitmap;
 	private var grayBar : Bitmap;
+	private var type : EUpgrade;
+	private var prices : Array<UInt>;
 	
-	public function new(bar : BitmapData, text : BitmapData, textY : Float) 
+	public function new(bar : BitmapData, text : BitmapData, textY : Float, type : EUpgrade, prices : Array<UInt>) 
 	{
 		super();
 		
+		this.prices = prices;
 		this.bar = new Bitmap(bar);
 		this.text = new Bitmap(text);
 		this.text.y = textY;
+		this.type = type;
 		
 		addEventListener(Event.ADDED_TO_STAGE, init);
 	}

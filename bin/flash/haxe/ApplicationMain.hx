@@ -226,6 +226,10 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
+		urls.push ("img/Shop/PriceButton.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
 		urls.push ("img/Shop/SlowmoBar.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
@@ -272,6 +276,18 @@ class ApplicationMain {
 		
 		urls.push ("sound/slowmo.mp3");
 		types.push (lime.Assets.AssetType.MUSIC);
+		
+		
+		urls.push ("font/license.txt");
+		types.push (lime.Assets.AssetType.TEXT);
+		
+		
+		urls.push ("font/readme.txt");
+		types.push (lime.Assets.AssetType.TEXT);
+		
+		
+		urls.push ("T4Y Font Regular");
+		types.push (lime.Assets.AssetType.FONT);
 		
 		
 		

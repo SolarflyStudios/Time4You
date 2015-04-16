@@ -141,6 +141,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("img/Numbers/9.png", AssetType.IMAGE);
 		className.set ("img/Shop/GrayBar.png", __ASSET__img_shop_graybar_png);
 		type.set ("img/Shop/GrayBar.png", AssetType.IMAGE);
+		className.set ("img/Shop/PriceButton.png", __ASSET__img_shop_pricebutton_png);
+		type.set ("img/Shop/PriceButton.png", AssetType.IMAGE);
 		className.set ("img/Shop/SlowmoBar.png", __ASSET__img_shop_slowmobar_png);
 		type.set ("img/Shop/SlowmoBar.png", AssetType.IMAGE);
 		className.set ("img/Shop/SlowmoText.png", __ASSET__img_shop_slowmotext_png);
@@ -165,6 +167,12 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("sound/power.mp3", AssetType.MUSIC);
 		className.set ("sound/slowmo.mp3", __ASSET__sound_slowmo_mp3);
 		type.set ("sound/slowmo.mp3", AssetType.MUSIC);
+		className.set ("font/license.txt", __ASSET__font_license_txt);
+		type.set ("font/license.txt", AssetType.TEXT);
+		className.set ("font/readme.txt", __ASSET__font_readme_txt);
+		type.set ("font/readme.txt", AssetType.TEXT);
+		className.set ("font/T4Y-Font.ttf", __ASSET__font_t4y_font_ttf);
+		type.set ("font/T4Y-Font.ttf", AssetType.FONT);
 		
 		
 		#elseif html5
@@ -362,6 +370,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 		path.set (id, id);
 		
 		type.set (id, AssetType.IMAGE);
+		id = "img/Shop/PriceButton.png";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
 		id = "img/Shop/SlowmoBar.png";
 		path.set (id, id);
 		
@@ -410,6 +422,18 @@ class DefaultAssetLibrary extends AssetLibrary {
 		path.set (id, id);
 		
 		type.set (id, AssetType.MUSIC);
+		id = "font/license.txt";
+		path.set (id, id);
+		
+		type.set (id, AssetType.TEXT);
+		id = "font/readme.txt";
+		path.set (id, id);
+		
+		type.set (id, AssetType.TEXT);
+		id = "font/T4Y-Font.ttf";
+		className.set (id, __ASSET__font_t4y_font_ttf);
+		
+		type.set (id, AssetType.FONT);
 		
 		
 		var assetsPrefix = ApplicationMain.config.assetsPrefix;
@@ -483,6 +507,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		
 		
+		
+		
+		
+		openfl.text.Font.registerFont (__ASSET__OPENFL__font_t4y_font_ttf);
 		
 		#end
 		
@@ -634,6 +662,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 		className.set ("img/Shop/GrayBar.png", __ASSET__img_shop_graybar_png);
 		type.set ("img/Shop/GrayBar.png", AssetType.IMAGE);
 		
+		className.set ("img/Shop/PriceButton.png", __ASSET__img_shop_pricebutton_png);
+		type.set ("img/Shop/PriceButton.png", AssetType.IMAGE);
+		
 		className.set ("img/Shop/SlowmoBar.png", __ASSET__img_shop_slowmobar_png);
 		type.set ("img/Shop/SlowmoBar.png", AssetType.IMAGE);
 		
@@ -669,6 +700,15 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		className.set ("sound/slowmo.mp3", __ASSET__sound_slowmo_mp3);
 		type.set ("sound/slowmo.mp3", AssetType.MUSIC);
+		
+		className.set ("font/license.txt", __ASSET__font_license_txt);
+		type.set ("font/license.txt", AssetType.TEXT);
+		
+		className.set ("font/readme.txt", __ASSET__font_readme_txt);
+		type.set ("font/readme.txt", AssetType.TEXT);
+		
+		className.set ("font/T4Y-Font.ttf", __ASSET__font_t4y_font_ttf);
+		type.set ("font/T4Y-Font.ttf", AssetType.FONT);
 		
 		
 		if (useManifest) {
@@ -1318,6 +1358,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep @:bind #if display private #end class __ASSET__img_numbers_8_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_numbers_9_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_shop_graybar_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_shop_pricebutton_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_shop_slowmobar_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_shop_slowmotext_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_shop_spawnbar_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
@@ -1330,6 +1371,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep @:bind #if display private #end class __ASSET__sound_death_mp3 extends flash.media.Sound { }
 @:keep @:bind #if display private #end class __ASSET__sound_power_mp3 extends flash.media.Sound { }
 @:keep @:bind #if display private #end class __ASSET__sound_slowmo_mp3 extends flash.media.Sound { }
+@:keep @:bind #if display private #end class __ASSET__font_license_txt extends flash.utils.ByteArray { }
+@:keep @:bind #if display private #end class __ASSET__font_readme_txt extends flash.utils.ByteArray { }
+@:keep @:bind #if display private #end class __ASSET__font_t4y_font_ttf extends flash.text.Font { }
 
 
 #elseif html5
@@ -1396,6 +1440,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 
+
+@:keep #if display private #end class __ASSET__font_t4y_font_ttf extends lime.text.Font { public function new () { super (); name = "T4Y Font Regular"; } } 
+
+
 #else
 
 
@@ -1451,6 +1499,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:image("assets/img/Numbers/8.png") #if display private #end class __ASSET__img_numbers_8_png extends lime.graphics.Image {}
 @:image("assets/img/Numbers/9.png") #if display private #end class __ASSET__img_numbers_9_png extends lime.graphics.Image {}
 @:image("assets/img/Shop/GrayBar.png") #if display private #end class __ASSET__img_shop_graybar_png extends lime.graphics.Image {}
+@:image("assets/img/Shop/PriceButton.png") #if display private #end class __ASSET__img_shop_pricebutton_png extends lime.graphics.Image {}
 @:image("assets/img/Shop/SlowmoBar.png") #if display private #end class __ASSET__img_shop_slowmobar_png extends lime.graphics.Image {}
 @:image("assets/img/Shop/SlowmoText.png") #if display private #end class __ASSET__img_shop_slowmotext_png extends lime.graphics.Image {}
 @:image("assets/img/Shop/SpawnBar.png") #if display private #end class __ASSET__img_shop_spawnbar_png extends lime.graphics.Image {}
@@ -1463,12 +1512,16 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:file("assets/sound/death.mp3") #if display private #end class __ASSET__sound_death_mp3 extends lime.utils.ByteArray {}
 @:file("assets/sound/power.mp3") #if display private #end class __ASSET__sound_power_mp3 extends lime.utils.ByteArray {}
 @:file("assets/sound/slowmo.mp3") #if display private #end class __ASSET__sound_slowmo_mp3 extends lime.utils.ByteArray {}
+@:file("assets/font/license.txt") #if display private #end class __ASSET__font_license_txt extends lime.utils.ByteArray {}
+@:file("assets/font/readme.txt") #if display private #end class __ASSET__font_readme_txt extends lime.utils.ByteArray {}
+@:font("assets/font/T4Y-Font.ttf") #if display private #end class __ASSET__font_t4y_font_ttf extends lime.text.Font {}
 
 
 
 #end
 
 #if openfl
+@:keep #if display private #end class __ASSET__OPENFL__font_t4y_font_ttf extends openfl.text.Font { public function new () { __fontPath = "font/T4Y-Font.ttf"; name = "T4Y Font Regular"; super (); }}
 
 #end
 

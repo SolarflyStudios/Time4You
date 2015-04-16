@@ -6,6 +6,7 @@ import openfl.display.GradientType;
 import openfl.geom.Matrix;
 import openfl.filters.GlowFilter;
 import openfl.geom.Rectangle;
+import kalakuh.time4you.upgrades.EUpgrade;
 
 /**
  * ...
@@ -13,8 +14,8 @@ import openfl.geom.Rectangle;
  */
 class StaminaBar extends Sprite
 {
-	private static inline var MAX_STAMINA : Int = 200;
-	private var stamina : Int = MAX_STAMINA;
+	private static var maxStamina : Int = 200;
+	private var stamina : Int = maxStamina;
 	private var bar : Sprite;
 	private var mat : Matrix;
 	private var targetAlpha : Float = 1;
@@ -36,7 +37,8 @@ class StaminaBar extends Sprite
 	}
 	
 	public function reset () : Void {
-		stamina = MAX_STAMINA;
+		maxStamina = 200 + (Saving.getUpgradeLevel(EUpgrade.Stamina) * 20);
+		stamina = maxStamina;
 		increaseRepeats = 0;
 	}
 	
@@ -55,7 +57,7 @@ class StaminaBar extends Sprite
 			
 			// gradient
 			bar.graphics.beginGradientFill(GradientType.LINEAR, [0xFFEE00, 0xE68A00], [1, 1], [0, 0xFF], mat);
-			bar.graphics.drawRoundRect(30, 30 + (stage.stageHeight - 60 - (stage.stageHeight - 60) * stamina / MAX_STAMINA), 20, (stage.stageHeight - 60) * stamina / MAX_STAMINA, 20, 20);
+			bar.graphics.drawRoundRect(30, 30 + (stage.stageHeight - 60 - (stage.stageHeight - 60) * stamina / maxStamina), 20, (stage.stageHeight - 60) * stamina / maxStamina, 20, 20);
 			bar.graphics.endFill();
 			
 			// alpha
@@ -77,7 +79,7 @@ class StaminaBar extends Sprite
 	}
 	
 	public function setStamina (s : Int) : Void {
-		stamina = cast Math.max(Math.min(s, MAX_STAMINA), 0);
+		stamina = cast Math.max(Math.min(s, maxStamina), 0);
 	}
 	
 	public function getHitbox () : Rectangle {

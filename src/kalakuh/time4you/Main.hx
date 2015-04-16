@@ -61,7 +61,7 @@ class Main extends Sprite
 		addChild(mainMenu);
 		
 		sound = Assets.getSound("sound/DarknessOfForever.mp3");
-		channel = sound.play(0, 9999);
+		//channel = sound.play(0, 9999);
 		
 		Saving.init();
 		
@@ -74,11 +74,6 @@ class Main extends Sprite
 	}
 	
 	private function update (e : Event) : Void {
-		// Obviously I can't use functional programmin, because if I write
-		// param = null;
-		// the actual object wouldn't be null after that... -_-
-		// well, let's just write the same code 6 times...
-		
 		// Q: Could the function be inlined?
 		// A: Obviously not :(
 		

@@ -21,6 +21,7 @@
 	<icon path="assets/logo.png" />
 	<assets path="assets/img" rename="img" />
 	<assets path="assets/sound" rename="sound" />
+	<assets path="assets/font" rename="font" />
 	
 	<!-- optimize output
 	<haxeflag name="-dce full" /> -->

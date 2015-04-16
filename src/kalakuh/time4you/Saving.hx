@@ -25,6 +25,9 @@ class Saving
 		saving = SharedObject.getLocal("Time4You");
 		if (saving.data.version == null) {
 			saving.data.version = version;
+			saving.data.slowmo = 0;
+			saving.data.spawn = 0;
+			saving.data.stamina = 0;
 			saving.data.coins = 0;
 			saving.flush();
 		} else if (saving.data.version != version) {
