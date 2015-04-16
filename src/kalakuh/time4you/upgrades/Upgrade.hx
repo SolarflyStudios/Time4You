@@ -5,6 +5,7 @@ import openfl.display.Bitmap;
 import openfl.display.BitmapData;
 import openfl.events.Event;
 import openfl.Assets;
+import openfl.text.Font;
 
 /**
  * ...
@@ -17,6 +18,8 @@ class Upgrade extends Sprite
 	private var grayBar : Bitmap;
 	private var type : EUpgrade;
 	private var prices : Array<UInt>;
+	private var priceDisplay : Bitmap;
+	private var font : Font;
 	
 	public function new(bar : BitmapData, text : BitmapData, textY : Float, type : EUpgrade, prices : Array<UInt>) 
 	{
@@ -40,8 +43,13 @@ class Upgrade extends Sprite
 		grayBar.y = 35;
 		grayBar.x = stage.stageWidth - 30;
 		
+		priceDisplay = new Bitmap(Assets.getBitmapData("img/Shop/PriceButton.png"));
+		priceDisplay.x = stage.stageWidth - priceDisplay.width - 25;
+		priceDisplay.y = 95;
+		
 		addChild(bar);
 		addChild(text);
 		addChild(grayBar);
+		addChild(priceDisplay);
 	}
 }

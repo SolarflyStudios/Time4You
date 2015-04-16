@@ -34,15 +34,15 @@ class Shop extends Screen
 		
 		slowmo = new SlowMotion();
 		addChild(slowmo);
-		slowmo.y = 80;
+		slowmo.y = 70;
 		
 		stamina = new Stamina();
 		addChild(stamina);
-		stamina.y = 200;
+		stamina.y = 190;
 		
 		spawnRate = new SpawnRate();
 		addChild(spawnRate);
-		spawnRate.y = 320;
+		spawnRate.y = 310;
 		
 		stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 		//addEventListener(MouseEvent.CLICK, onClick);
