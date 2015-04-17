@@ -74,7 +74,7 @@ class Upgrade extends Sprite
 	}
 	
 	private function purchase (e : MouseEvent) : Void {
-		if (Saving.getCoins() >= prices[Saving.getUpgradeLevel(type)]) {
+		if (Saving.getCoins() >= prices[Saving.getUpgradeLevel(type)] && priceText.text != "-") {
 			trace("UPGRADE!");
 			Saving.setCoins(Saving.getCoins() - prices[Saving.getUpgradeLevel(type)]);
 			Saving.setUpgradeLevel(type, Saving.getUpgradeLevel(type) + 1); 

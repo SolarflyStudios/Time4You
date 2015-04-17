@@ -16,6 +16,7 @@ class Saving
 	private static var spawnRate : UInt;
 	private static var stamina : UInt;
 	
+	
 	public function new() 
 	{
 		
@@ -55,7 +56,7 @@ class Saving
 		coins = c;
 		saving.data.coins = coins;
 		saving.flush();
-		trace(coins + " coins collected");
+		trace(coins + " coins");
 	}
 	
 	public static function getUpgradeLevel (upgrade : EUpgrade) : UInt {

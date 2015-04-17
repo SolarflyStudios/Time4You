@@ -395,7 +395,7 @@ class GameManager extends Screen
 				coin.newPosition();
 			}
 			
-			stamina.increase(10);
+			stamina.increase(10 + Saving.getUpgradeLevel(EUpgrade.Stamina));
 			
 			coinSound.play();
 			
