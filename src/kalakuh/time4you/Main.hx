@@ -61,7 +61,7 @@ class Main extends Sprite
 		addChild(mainMenu);
 		
 		sound = Assets.getSound("sound/DarknessOfForever.mp3");
-		//channel = sound.play(0, 9999);
+		channel = sound.play(0, 9999);
 		
 		Saving.init();
 		

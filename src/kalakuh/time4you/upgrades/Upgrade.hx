@@ -69,6 +69,7 @@ class Upgrade extends Sprite
 		addChild(priceDisplay);
 		addChild(priceText);
 		
+		
 		addEventListener(MouseEvent.CLICK, purchase);
 	}
 	
