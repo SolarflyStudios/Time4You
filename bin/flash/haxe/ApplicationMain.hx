@@ -274,6 +274,10 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.MUSIC);
 		
 		
+		urls.push ("sound/purchase.mp3");
+		types.push (lime.Assets.AssetType.MUSIC);
+		
+		
 		urls.push ("sound/slowmo.mp3");
 		types.push (lime.Assets.AssetType.MUSIC);
 		
@@ -282,12 +286,12 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
+		urls.push ("Nebula Regular");
+		types.push (lime.Assets.AssetType.FONT);
+		
+		
 		urls.push ("font/readme.txt");
 		types.push (lime.Assets.AssetType.TEXT);
-		
-		
-		urls.push ("T4Y Font Regular");
-		types.push (lime.Assets.AssetType.FONT);
 		
 		
 		

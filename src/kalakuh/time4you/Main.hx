@@ -70,6 +70,8 @@ class Main extends Sprite
 			kongregate = new KongregateAPI();
 		#end
 		
+		
+		
 		addEventListener(Event.ENTER_FRAME, update);
 	}
 	

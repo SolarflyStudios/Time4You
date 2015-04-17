@@ -2,14 +2,14 @@
 font-building tool.
 This font was created by Juha Harviainen.
 This font has a homepage where this archive and other versions may be found:
-http://fontstruct.com/fontstructions/show/1137771
+http://fontstruct.com/fontstructions/show/1099008
 
 Try Fontstruct at http://fontstruct.com
 It’s easy and it’s fun.
 
 NOTE FOR FLASH USERS: Fontstruct fonts (fontstructions) are optimized for Flash.
 If the font in this archive is a pixel font, it is best displayed at a font-size
-of 8.
+of 16.
 
 Fontstruct is sponsored by FontShop.
 Visit them at http://fontshop.com

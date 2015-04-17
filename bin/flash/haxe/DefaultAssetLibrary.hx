@@ -165,14 +165,16 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("sound/death.mp3", AssetType.MUSIC);
 		className.set ("sound/power.mp3", __ASSET__sound_power_mp3);
 		type.set ("sound/power.mp3", AssetType.MUSIC);
+		className.set ("sound/purchase.mp3", __ASSET__sound_purchase_mp3);
+		type.set ("sound/purchase.mp3", AssetType.MUSIC);
 		className.set ("sound/slowmo.mp3", __ASSET__sound_slowmo_mp3);
 		type.set ("sound/slowmo.mp3", AssetType.MUSIC);
 		className.set ("font/license.txt", __ASSET__font_license_txt);
 		type.set ("font/license.txt", AssetType.TEXT);
+		className.set ("font/Nebula.ttf", __ASSET__font_nebula_ttf);
+		type.set ("font/Nebula.ttf", AssetType.FONT);
 		className.set ("font/readme.txt", __ASSET__font_readme_txt);
 		type.set ("font/readme.txt", AssetType.TEXT);
-		className.set ("font/T4Y-Font.ttf", __ASSET__font_t4y_font_ttf);
-		type.set ("font/T4Y-Font.ttf", AssetType.FONT);
 		
 		
 		#elseif html5
@@ -418,6 +420,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 		path.set (id, id);
 		
 		type.set (id, AssetType.MUSIC);
+		id = "sound/purchase.mp3";
+		path.set (id, id);
+		
+		type.set (id, AssetType.MUSIC);
 		id = "sound/slowmo.mp3";
 		path.set (id, id);
 		
@@ -426,14 +432,14 @@ class DefaultAssetLibrary extends AssetLibrary {
 		path.set (id, id);
 		
 		type.set (id, AssetType.TEXT);
+		id = "font/Nebula.ttf";
+		className.set (id, __ASSET__font_nebula_ttf);
+		
+		type.set (id, AssetType.FONT);
 		id = "font/readme.txt";
 		path.set (id, id);
 		
 		type.set (id, AssetType.TEXT);
-		id = "font/T4Y-Font.ttf";
-		className.set (id, __ASSET__font_t4y_font_ttf);
-		
-		type.set (id, AssetType.FONT);
 		
 		
 		var assetsPrefix = ApplicationMain.config.assetsPrefix;
@@ -510,7 +516,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		
 		
-		openfl.text.Font.registerFont (__ASSET__OPENFL__font_t4y_font_ttf);
+		openfl.text.Font.registerFont (__ASSET__OPENFL__font_nebula_ttf);
+		
 		
 		#end
 		
@@ -698,17 +705,20 @@ class DefaultAssetLibrary extends AssetLibrary {
 		className.set ("sound/power.mp3", __ASSET__sound_power_mp3);
 		type.set ("sound/power.mp3", AssetType.MUSIC);
 		
+		className.set ("sound/purchase.mp3", __ASSET__sound_purchase_mp3);
+		type.set ("sound/purchase.mp3", AssetType.MUSIC);
+		
 		className.set ("sound/slowmo.mp3", __ASSET__sound_slowmo_mp3);
 		type.set ("sound/slowmo.mp3", AssetType.MUSIC);
 		
 		className.set ("font/license.txt", __ASSET__font_license_txt);
 		type.set ("font/license.txt", AssetType.TEXT);
 		
+		className.set ("font/Nebula.ttf", __ASSET__font_nebula_ttf);
+		type.set ("font/Nebula.ttf", AssetType.FONT);
+		
 		className.set ("font/readme.txt", __ASSET__font_readme_txt);
 		type.set ("font/readme.txt", AssetType.TEXT);
-		
-		className.set ("font/T4Y-Font.ttf", __ASSET__font_t4y_font_ttf);
-		type.set ("font/T4Y-Font.ttf", AssetType.FONT);
 		
 		
 		if (useManifest) {
@@ -1370,10 +1380,11 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep @:bind #if display private #end class __ASSET__sound_darknessofforever_mp3 extends flash.media.Sound { }
 @:keep @:bind #if display private #end class __ASSET__sound_death_mp3 extends flash.media.Sound { }
 @:keep @:bind #if display private #end class __ASSET__sound_power_mp3 extends flash.media.Sound { }
+@:keep @:bind #if display private #end class __ASSET__sound_purchase_mp3 extends flash.media.Sound { }
 @:keep @:bind #if display private #end class __ASSET__sound_slowmo_mp3 extends flash.media.Sound { }
 @:keep @:bind #if display private #end class __ASSET__font_license_txt extends flash.utils.ByteArray { }
+@:keep @:bind #if display private #end class __ASSET__font_nebula_ttf extends flash.text.Font { }
 @:keep @:bind #if display private #end class __ASSET__font_readme_txt extends flash.utils.ByteArray { }
-@:keep @:bind #if display private #end class __ASSET__font_t4y_font_ttf extends flash.text.Font { }
 
 
 #elseif html5
@@ -1441,7 +1452,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 
-@:keep #if display private #end class __ASSET__font_t4y_font_ttf extends lime.text.Font { public function new () { super (); name = "T4Y Font Regular"; } } 
+@:keep #if display private #end class __ASSET__font_nebula_ttf extends lime.text.Font { public function new () { super (); name = "Nebula Regular"; } } 
+
 
 
 #else
@@ -1511,17 +1523,18 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:file("assets/sound/DarknessOfForever.mp3") #if display private #end class __ASSET__sound_darknessofforever_mp3 extends lime.utils.ByteArray {}
 @:file("assets/sound/death.mp3") #if display private #end class __ASSET__sound_death_mp3 extends lime.utils.ByteArray {}
 @:file("assets/sound/power.mp3") #if display private #end class __ASSET__sound_power_mp3 extends lime.utils.ByteArray {}
+@:file("assets/sound/purchase.mp3") #if display private #end class __ASSET__sound_purchase_mp3 extends lime.utils.ByteArray {}
 @:file("assets/sound/slowmo.mp3") #if display private #end class __ASSET__sound_slowmo_mp3 extends lime.utils.ByteArray {}
 @:file("assets/font/license.txt") #if display private #end class __ASSET__font_license_txt extends lime.utils.ByteArray {}
+@:font("assets/font/Nebula.ttf") #if display private #end class __ASSET__font_nebula_ttf extends lime.text.Font {}
 @:file("assets/font/readme.txt") #if display private #end class __ASSET__font_readme_txt extends lime.utils.ByteArray {}
-@:font("assets/font/T4Y-Font.ttf") #if display private #end class __ASSET__font_t4y_font_ttf extends lime.text.Font {}
 
 
 
 #end
 
 #if openfl
-@:keep #if display private #end class __ASSET__OPENFL__font_t4y_font_ttf extends openfl.text.Font { public function new () { __fontPath = "font/T4Y-Font.ttf"; name = "T4Y Font Regular"; super (); }}
+@:keep #if display private #end class __ASSET__OPENFL__font_nebula_ttf extends openfl.text.Font { public function new () { __fontPath = "font/Nebula.ttf"; name = "Nebula Regular"; super (); }}
 
 #end
 

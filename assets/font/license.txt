@@ -1,9 +1,9 @@
-﻿FontStruct Non-Commercial Software End User License Agreement 1.0
+﻿FontStruct Commercial Software End User License Agreement 1.0
 
 This software end user license agreement (hereinafter “Agreement”) is made
 between you or, if you represent a legal entity, that legal entity (hereinafter
 “You”) and Juha Harviainen, the copyright holder and designer (hereinafter
-“Font Designer”) of the font software named “T4Y Font” (hereinafter
+“Font Designer”) of the font software named “Nebula” (hereinafter
 “Font Software”).
 
 1. BINDING AGREEMENT
@@ -17,48 +17,42 @@ The Font Designer hereby grants You a non-exclusive, non-transferable licence to
 use the Font Software provided that You comply with all terms and conditions of
 this Agreement.
 
-2.1 PERSONAL USE
-You may use the Fonts Software only for Your own Personal Purposes and for Your
-Work. For the purposes of this Agreement, “Personal Purposes” shall mean any
-private use of the Font Software by you. “Work” shall mean any work or
-result created by You or on Your behalf with the Font Software. For the
-avoidance of doubt, the use for Personal Purposes does not allow any use of the
-Font Software and/or any Work for commercial purposes (see Section 2.2) and/or
-as a web-font (see Section 2.6).
+2.1 PERSONAL AND BUSINESS USE
+You may use the Font Software for any personal or business purposes and for Your
+Work. For the purposes of this Agreement, “Work” shall mean any work,
+result or product created by You with the Font Software, including
+commercial/profit-making Work. For the avoidance of doubt, this Agreement does
+not permit any use of the Font Software as a web-font (see Section 2.5).
 
-2.2 NO COMMERCIAL USE
-Neither the Font Software, nor any of its individual components or any Work, may
-be used by You for any form of profit-making or otherwise commercial projects,
-without express prior written permission from the Font Designer.
-
-2.3 NO SALE OR DISTRIBUTION
+2.2 NO SALE OR DISTRIBUTION
 You may not sell, rent, license, sublicense, distribute, redistribute, give-away
 or make available (in any other way) the Font Software alone or as part of any
 collection, product or service to any third party. 
 
-2.4 NO MODIFICATION
+2.3 NO MODIFICATION
 You may not modify, adapt, rename, translate, reverse engineer, decompile,
 disassemble, alter, or attempt to discover the source code of the Font Software.
 
-2.5 EMBEDDING
+
+2.4 EMBEDDING
 You may embed the Font Software in documents, applications or devices either as
 a rasterized representation of the Font Software (e.g., a GIF or JPEG) or as a
 subset of the Font Software as long as the document, application or device is
 distributed in a secure format that permits only the viewing and printing but
 not the editing of the text.
 
-2.6 NO USE AS A WEBFONT
+2.5 NO USE AS A WEBFONT
 You may not make the Font Software accessible on a web server in order to enable
 a web browser to render the content of Websites using the respective Font
 Software.
 
-2.7 BACKUP
+2.6 BACKUP
 You may make backup copies of the Font Software for archival purposes only,
 provided that You retain exclusive custody and control over such copies. Any
 backup copy of the Font Software must contain the same copyright, trademark, and
 other proprietary information as the original.
 
-2.8 PRINT SHOPS AND SERVICE BUREAUS
+2.7 PRINT SHOPS AND SERVICE BUREAUS
 You may provide a copy of the Font Software used in Your Work to a print shop,
 service bureau, etc. for printing or otherwise outputting Your Work. Afterwards,
 the print shop, service bureau, etc. must destroy and/or delete all copies of
@@ -71,9 +65,9 @@ means You are utilizing for Your Work, an attribution notice (hereinafter “The
 Attribution Notice”) comprising of:
 
 the name of the Font Designer or pseudonym, if applicable (Juha Harviainen);
-the title of the Font Software (“T4Y Font”); and
+the title of the Font Software (“Nebula”); and
 to the extent reasonably practicable, the URI
-(http://fontstruct.com/fontstructions/show/1137771) from where the Font was
+(http://fontstruct.com/fontstructions/show/1099008) from where the Font was
 originally downloaded.
 
 The Attribution Notice may be implemented in any reasonable manner. For the

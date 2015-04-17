@@ -6,6 +6,10 @@ import openfl.display.BitmapData;
 import openfl.events.Event;
 import openfl.Assets;
 import openfl.text.Font;
+import openfl.text.TextField;
+import openfl.text.TextFormat;
+import openfl.text.TextFormatAlign;
+import openfl.events.MouseEvent;
 
 /**
  * ...
@@ -20,6 +24,7 @@ class Upgrade extends Sprite
 	private var prices : Array<UInt>;
 	private var priceDisplay : Bitmap;
 	private var font : Font;
+	private var priceText : TextField;
 	
 	public function new(bar : BitmapData, text : BitmapData, textY : Float, type : EUpgrade, prices : Array<UInt>) 
 	{
@@ -47,9 +52,32 @@ class Upgrade extends Sprite
 		priceDisplay.x = stage.stageWidth - priceDisplay.width - 25;
 		priceDisplay.y = 95;
 		
+		font = Assets.getFont("font/Nebula.ttf");
+		priceText = new TextField();
+		priceText.x = priceDisplay.x + priceDisplay.width / 2;
+		priceText.y = priceDisplay.y;
+		priceText.width = priceDisplay.width / 2;
+		priceText.height = priceDisplay.height;
+		var format : TextFormat = new TextFormat(font.fontName, 40, 0x000000, false, false, false, null, null, TextFormatAlign.CENTER);
+		priceText.defaultTextFormat = format;
+		priceText.text = (Saving.getUpgradeLevel(type) == 10 ? "-" : "" + prices[Saving.getUpgradeLevel(type)]);
+		priceText.selectable = false;
+		
 		addChild(bar);
 		addChild(text);
 		addChild(grayBar);
 		addChild(priceDisplay);
+		addChild(priceText);
+		
+		addEventListener(MouseEvent.CLICK, purchase);
+	}
+	
+	private function purchase (e : MouseEvent) : Void {
+		if (Saving.getCoins() >= prices[Saving.getUpgradeLevel(type)]) {
+			trace("UPGRADE!");
+			Saving.setCoins(Saving.getCoins() - prices[Saving.getUpgradeLevel(type)]);
+			Saving.setUpgradeLevel(type, Saving.getUpgradeLevel(type) + 1); 
+			priceText.text = (Saving.getUpgradeLevel(type) == 10 ? "-" : "" + prices[Saving.getUpgradeLevel(type)]);
+		}
 	}
 }
