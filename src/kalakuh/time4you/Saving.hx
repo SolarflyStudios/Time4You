@@ -24,23 +24,14 @@ class Saving
 	
 	public static function init () : Void {
 		saving = SharedObject.getLocal("Time4You");
-		if (saving.data.version == null) {
-			saving.data.version = version;
-			saving.data.slowmo = 0;
-			saving.data.spawn = 0;
-			saving.data.stamina = 0;
-			saving.data.coins = 0;
-			saving.flush();
-		} else if (saving.data.version != version) {
-			// DO STUFF
-			if (saving.data.version == "Beta 2.0") {
-				saving.data.slowmo = 0;
-				saving.data.spawn = 0;
-				saving.data.stamina = 0;
-			}
-			saving.data.version = version;
-			saving.flush();
-		}
+		if (saving.data.coins == null) saving.data.coins = 0;
+		if (saving.data.slowmo == null) saving.data.slowmo = 0;
+		if (saving.data.spawn == null) saving.data.spawn = 0;
+		if (saving.data.stamina == null) saving.data.stamina = 0;
+		
+		saving.data.version = version;
+		
+		saving.flush();
 		
 		slowmo = saving.data.slowmo;
 		spawnRate = saving.data.spawn;

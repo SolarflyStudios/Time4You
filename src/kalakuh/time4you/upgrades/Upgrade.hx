@@ -5,11 +5,13 @@ import openfl.display.Bitmap;
 import openfl.display.BitmapData;
 import openfl.events.Event;
 import openfl.Assets;
+import openfl.media.Sound;
 import openfl.text.Font;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
 import openfl.text.TextFormatAlign;
 import openfl.events.MouseEvent;
+import openfl.geom.Rectangle;
 
 /**
  * ...
@@ -25,6 +27,7 @@ class Upgrade extends Sprite
 	private var priceDisplay : Bitmap;
 	private var font : Font;
 	private var priceText : TextField;
+	private var upgradeSound : Sound;
 	
 	public function new(bar : BitmapData, text : BitmapData, textY : Float, type : EUpgrade, prices : Array<UInt>) 
 	{
@@ -43,6 +46,8 @@ class Upgrade extends Sprite
 		removeEventListener(Event.ADDED_TO_STAGE, init);
 		
 		text.x = stage.stageWidth / 2 + 20;
+		
+		upgradeSound = Assets.getSound("sound/purchase.mp3");
 		
 		grayBar = new Bitmap(Assets.getBitmapData("img/Shop/GrayBar.png"));
 		grayBar.y = 35;
@@ -76,6 +81,7 @@ class Upgrade extends Sprite
 	private function purchase (e : MouseEvent) : Void {
 		if (Saving.getCoins() >= prices[Saving.getUpgradeLevel(type)] && priceText.text != "-") {
 			trace("UPGRADE!");
+			upgradeSound.play();
 			Saving.setCoins(Saving.getCoins() - prices[Saving.getUpgradeLevel(type)]);
 			Saving.setUpgradeLevel(type, Saving.getUpgradeLevel(type) + 1); 
 			priceText.text = (Saving.getUpgradeLevel(type) == 10 ? "-" : "" + prices[Saving.getUpgradeLevel(type)]);

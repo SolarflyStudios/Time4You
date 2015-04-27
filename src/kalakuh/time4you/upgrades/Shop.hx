@@ -45,7 +45,7 @@ class Shop extends Screen
 		spawnRate.y = 310;
 		
 		stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
-		//addEventListener(MouseEvent.CLICK, onClick);
+		addEventListener(MouseEvent.CLICK, onClick);
 	}
 	
 	private function onKeyDown (e : KeyboardEvent) {
@@ -59,12 +59,9 @@ class Shop extends Screen
 		}
 	}
 	
-	/*private function onClick (e : MouseEvent) : Void {
-		var main : Main = cast parent;
-		super.setTargetAlpha(0);
-		main.openMenu(EScreen.S_MainMenu);
-		super.setToBeDestroyed();
-	}*/
+	private function onClick (e : MouseEvent) : Void {
+		trace(mouseX, mouseY);
+	}
 	
 	override public function onDestroy () {
 		stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
