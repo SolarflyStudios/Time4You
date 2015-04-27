@@ -10,6 +10,7 @@ import openfl.text.Font;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
 import openfl.text.TextFormatAlign;
+import openfl.text.AntiAliasType;
 import openfl.events.MouseEvent;
 import openfl.geom.Rectangle;
 
@@ -63,6 +64,8 @@ class Upgrade extends Sprite
 		priceText.y = priceDisplay.y;
 		priceText.width = priceDisplay.width / 2;
 		priceText.height = priceDisplay.height;
+		priceText.antiAliasType = AntiAliasType.ADVANCED;
+		priceText.embedFonts = true;
 		var format : TextFormat = new TextFormat(font.fontName, 40, 0x000000, false, false, false, null, null, TextFormatAlign.CENTER);
 		priceText.defaultTextFormat = format;
 		priceText.text = (Saving.getUpgradeLevel(type) == 10 ? "-" : "" + prices[Saving.getUpgradeLevel(type)]);
