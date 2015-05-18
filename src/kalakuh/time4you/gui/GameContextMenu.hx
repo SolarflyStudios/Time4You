@@ -22,12 +22,13 @@ class GameContextMenu {
 		var solarfly : ContextMenuItem = new ContextMenuItem("Made by Solarfly Studios", true, false);
 		var copyright : ContextMenuItem = new ContextMenuItem("Copyright - 2015", false, false);
 		
-		menu.customItems = [secret, solarfly, copyright];
+		menu.customItems = [solarfly, copyright, secret];
 		
 		return menu;
 	}
 	
 	private static function onClick (e : ContextMenuEvent) : Void {
-		trace("Wow! Much secret! Very easter egg!");
+		var arr : Array<String> = ["The cake is a lie", "Herobrine was here", "Beam me up, Scotty", "std::cout<<\"Hello, World!\"<<std::endl;", "<insert a cool message here>", "Such game, very wow", "The princess is in another castle", "You shall not pass", "Elmo knows where you live", "This is a randomly chosen message", "sin(a) = cos(90 - a)", "Luke, I'm your father"];
+		cast(e.target, ContextMenuItem).caption = arr[Std.int(Math.random() * arr.length)];
 	}
 }

@@ -76,12 +76,9 @@ class Upgrade extends Sprite
 		addChild(grayBar);
 		addChild(priceDisplay);
 		addChild(priceText);
-		
-		
-		addEventListener(MouseEvent.CLICK, purchase);
 	}
 	
-	private function purchase (e : MouseEvent) : Void {
+	public function purchase () : Void {
 		if (Saving.getCoins() >= prices[Saving.getUpgradeLevel(type)] && priceText.text != "-") {
 			trace("UPGRADE!");
 			upgradeSound.play();

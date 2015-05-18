@@ -40,8 +40,13 @@ class KongregateAPI {
 		}
 	}
 	
-	public function submitScore (score : Int, gamemode : EGameMode) {
+	public function upgradeBought (amount : Int) : Void {
+		if (kongregate != null) kongregate.stats.submit("UpgradesBought", amount);
+	}
+	
+	public function submitScore (score : Int, gamemode : EGameMode) : Void {
 		if (kongregate != null) {
+			kongregate.stats.submit("CoinsCollected", score);
 			if (gamemode == EGameMode.Classic) {
 				kongregate.stats.submit("HighscoreNormal", score);
 			} else if (gamemode == EGameMode.Rush) {
