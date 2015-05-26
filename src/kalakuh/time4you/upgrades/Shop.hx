@@ -79,12 +79,16 @@ class Shop extends Screen
 	}
 	
 	private function onClick (e : MouseEvent) : Void {
+		// check if the player clicks the buttons
+			// slow motion
 		if (mouseX >= 36 && mouseX <= 179 && mouseY >= 80 && mouseY <= 180
 			|| mouseX >= 8 && mouseX <= 636 && mouseY >= 100 && mouseY <= 160) slowmo.purchase();
 			
+			// stamina
 		if (mouseX >= 36 && mouseX <= 179 && mouseY >= 200 && mouseY <= 300
 			|| mouseX >= 8 && mouseX <= 636 && mouseY >= 220 && mouseY <= 280) stamina.purchase();
 			
+			// spawn rate
 		if (mouseX >= 36 && mouseX <= 179 && mouseY >= 320 && mouseY <= 420
 			|| mouseX >= 8 && mouseX <= 636 && mouseY >= 340 && mouseY <= 398) spawnRate.purchase();
 			

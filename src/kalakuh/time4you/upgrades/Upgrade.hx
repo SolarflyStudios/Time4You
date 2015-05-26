@@ -80,7 +80,7 @@ class Upgrade extends Sprite
 	
 	public function purchase () : Void {
 		if (Saving.getCoins() >= prices[Saving.getUpgradeLevel(type)] && priceText.text != "-") {
-			trace("UPGRADE!");
+			trace("AN UPGRADE!"); // such debugging
 			upgradeSound.play();
 			Saving.setCoins(Saving.getCoins() - prices[Saving.getUpgradeLevel(type)]);
 			Saving.setUpgradeLevel(type, Saving.getUpgradeLevel(type) + 1); 

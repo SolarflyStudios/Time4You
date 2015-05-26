@@ -17,6 +17,8 @@ class Player extends Sprite
 	private var yVel : Float = 0;
 	private var alive : Bool = false;
 	
+	private var invincible : UInt = 0;
+	
 	private var shrinkCounter : UInt = 0;
 	private var targetScale : Float = 1;
 	
@@ -54,11 +56,31 @@ class Player extends Sprite
 	
 	public function shrink () : Void {
 		targetScale = 0.5;
-		shrinkCounter = 500;
+		shrinkCounter = 300;
+	}
+	
+	public function isInvincible () : Bool {
+		return 0 < invincible;
 	}
 	
 	private function update (e : Event) : Void {
 		if (alive) {
+			if (invincible > 0) {
+				invincible--;
+				if (invincible > 60) {
+					alpha = 0.5;
+				} else {
+					if (invincible > 45 || (invincible <= 30 && invincible > 15)) {
+						alpha = 0.5;
+					} else {
+						alpha = 0.75;
+					}
+				}
+			} else {
+				alpha = 1;
+			}
+			
+			
 			if (shrinkCounter > 0) {
 				shrinkCounter--;
 			} else {
@@ -98,6 +120,10 @@ class Player extends Sprite
 				yVel = 0;
 			}
 		}
+	}
+	
+	public function beInvincible () : Void {
+		invincible = 300;
 	}
 	
 	public function getPlayer () : Bitmap {

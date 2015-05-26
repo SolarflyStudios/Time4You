@@ -7,6 +7,6 @@ package kalakuh.time4you.game;
 enum EPowerUp 
 {
 	Shrink; // it's the size that matters
-	SlowMo; // soooooooo sloooooooow
-	Nuke; // *evil laugh*
+	Invincibility; // Yes! I'm invincible! ~ James Bond: GoldenEye
+	Double; // Two is always better than one, right?
 }

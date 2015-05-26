@@ -7,6 +7,7 @@ import openfl.errors.Error;
 import openfl.events.Event;
 import openfl.Assets;
 import openfl.display.Bitmap;
+import openfl.filters.GlowFilter;
 import openfl.geom.Point;
 import openfl.ui.Keyboard;
 import openfl.events.KeyboardEvent;
@@ -38,7 +39,7 @@ class GameManager extends Screen
 	private var enemySpawnCounter : Float;
 	private var enemies : Array<Enemy>;
 	
-	private var powerSpawnCounter : Float = 2000 - (Saving.getUpgradeLevel(EUpgrade.Spawn) * 100);
+	private var powerSpawnCounter : Float = 3000 - (Saving.getUpgradeLevel(EUpgrade.Spawn) * 100);
 	private var powers : Array<PowerUp>;
 	
 	private var collectedCoins : UInt = 0;
@@ -54,6 +55,8 @@ class GameManager extends Screen
 	private var slowmoSound : Sound;
 	private var coinSound : Sound;
 	private var powerSound : Sound;
+	
+	private var doubleCounter : UInt = 0;
 	
 	private var alive : Bool = false;
 	
@@ -196,6 +199,15 @@ class GameManager extends Screen
 			rush.setTargetAlpha(1);
 		}
 		
+		if (doubleCounter > 0) {
+			doubleCounter--;
+			if (coin != null) coin.filters = [new GlowFilter(0x7788FF, 1, 6, 6, 3, 3)];
+			if (oldCoin != null) oldCoin.filters = [new GlowFilter(0x7788FF, 1, 6, 6, 3, 3)];
+		} else {
+			if (coin != null) coin.filters = [];
+			if (oldCoin != null) oldCoin.filters = [];
+		}
+		
 		stamina.setTargetAlpha(0.8);
 		volume.setTargetAlpha(1);
 		
@@ -235,15 +247,15 @@ class GameManager extends Screen
 		pixelsMoved += pSpeed * (slowmo ? 0.5 - (0.03 * Saving.getUpgradeLevel(EUpgrade.SlowMo)) : 1);
 		powerSpawnCounter -= pSpeed * (slowmo ? 0.5 - (0.03 * Saving.getUpgradeLevel(EUpgrade.SlowMo)) : 1);
 		if (powerSpawnCounter <= 0) {
-			powerSpawnCounter = 1500 + Math.random() * 1500 - (Saving.getUpgradeLevel(EUpgrade.Spawn) * 100);
+			powerSpawnCounter = 2500 + Math.random() * 1000 - (Saving.getUpgradeLevel(EUpgrade.Spawn) * 100);
 			var power : PowerUp;
 			// TODO
 			if (Math.random() < 1.0 / 3.0) {
 				power = new PowerUp(EPowerUp.Shrink);
 			} else if (Math.random() < 1.0 / 2.0) {
-				power = new PowerUp(EPowerUp.Shrink);
+				power = new PowerUp(EPowerUp.Invincibility);
 			} else {
-				power = new PowerUp(EPowerUp.Shrink);
+				power = new PowerUp(EPowerUp.Double);
 			}
 			
 			addChild(power);
@@ -320,7 +332,7 @@ class GameManager extends Screen
 		// check collisions
 			// enemies
 		for (enemy in enemies) {
-			if (enemy.isDeadly() && enemy.getHitbox().intersects(player.getHitbox())) {
+			if (enemy.isDeadly() && enemy.getHitbox().intersects(player.getHitbox()) && !player.isInvincible()) {
 				super.setTargetAlpha(0);
 				deathSound.play();
 				removeEventListener(Event.ENTER_FRAME, update);
@@ -352,6 +364,10 @@ class GameManager extends Screen
 				switch (power.getType()) {
 					case EPowerUp.Shrink:
 						player.shrink();
+					case EPowerUp.Invincibility:
+						player.beInvincible();
+					case EPowerUp.Double:
+						doubleCounter = 300;
 					default:
 						throw new Error("Power " + power.getType() + " not implemented yet!");
 				}
@@ -401,6 +417,11 @@ class GameManager extends Screen
 			
 			if (gamemode != EGameMode.Rush) score.setValue(score.getValue() + 1);
 			scoreNumb++;
+			// such repeating, do this in a better way
+			if (doubleCounter > 0) {
+				if (gamemode != EGameMode.Rush) score.setValue(score.getValue() + 1);
+				scoreNumb++;
+			}
 		}
 		
 		// score & timer

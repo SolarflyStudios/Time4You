@@ -23,7 +23,12 @@ class PowerUp extends Sprite
 		switch (type) {
 			case EPowerUp.Shrink:
 				powerup = new Bitmap(Assets.getBitmapData("img/In-Game/SizePU.png"));
+			case EPowerUp.Invincibility:
+				powerup = new Bitmap(Assets.getBitmapData("img/In-Game/InviPU.png"));
+			case EPowerUp.Double:
+				powerup = new Bitmap(Assets.getBitmapData("img/In-Game/x2PU.png"));
 			default:
+				trace(type + " not recognized");
 				powerup = new Bitmap(Assets.getBitmapData("img/In-Game/SizePU.png"));
 		}
 		this.type = type;

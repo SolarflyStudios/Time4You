@@ -79,6 +79,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("img/In-Game/ExplodingEnemy.png", AssetType.IMAGE);
 		className.set ("img/In-Game/GameBackground.png", __ASSET__img_in_game_gamebackground_png);
 		type.set ("img/In-Game/GameBackground.png", AssetType.IMAGE);
+		className.set ("img/In-Game/InviPU.png", __ASSET__img_in_game_invipu_png);
+		type.set ("img/In-Game/InviPU.png", AssetType.IMAGE);
 		className.set ("img/In-Game/InvisEnemy.png", __ASSET__img_in_game_invisenemy_png);
 		type.set ("img/In-Game/InvisEnemy.png", AssetType.IMAGE);
 		className.set ("img/In-Game/MissileEnemy.png", __ASSET__img_in_game_missileenemy_png);
@@ -95,6 +97,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("img/In-Game/Sound.png", AssetType.IMAGE);
 		className.set ("img/In-Game/SoundOff.png", __ASSET__img_in_game_soundoff_png);
 		type.set ("img/In-Game/SoundOff.png", AssetType.IMAGE);
+		className.set ("img/In-Game/x2PU.png", __ASSET__img_in_game_x2pu_png);
+		type.set ("img/In-Game/x2PU.png", AssetType.IMAGE);
 		className.set ("img/Menu/CreditsButton.png", __ASSET__img_menu_creditsbutton_png);
 		type.set ("img/Menu/CreditsButton.png", AssetType.IMAGE);
 		className.set ("img/Menu/CreditsButtonHover.png", __ASSET__img_menu_creditsbuttonhover_png);
@@ -248,6 +252,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 		path.set (id, id);
 		
 		type.set (id, AssetType.IMAGE);
+		id = "img/In-Game/InviPU.png";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
 		id = "img/In-Game/InvisEnemy.png";
 		path.set (id, id);
 		
@@ -277,6 +285,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		type.set (id, AssetType.IMAGE);
 		id = "img/In-Game/SoundOff.png";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "img/In-Game/x2PU.png";
 		path.set (id, id);
 		
 		type.set (id, AssetType.IMAGE);
@@ -516,6 +528,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		
 		
+		
+		
 		openfl.text.Font.registerFont (__ASSET__OPENFL__font_nebula_ttf);
 		
 		
@@ -576,6 +590,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 		className.set ("img/In-Game/GameBackground.png", __ASSET__img_in_game_gamebackground_png);
 		type.set ("img/In-Game/GameBackground.png", AssetType.IMAGE);
 		
+		className.set ("img/In-Game/InviPU.png", __ASSET__img_in_game_invipu_png);
+		type.set ("img/In-Game/InviPU.png", AssetType.IMAGE);
+		
 		className.set ("img/In-Game/InvisEnemy.png", __ASSET__img_in_game_invisenemy_png);
 		type.set ("img/In-Game/InvisEnemy.png", AssetType.IMAGE);
 		
@@ -599,6 +616,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		className.set ("img/In-Game/SoundOff.png", __ASSET__img_in_game_soundoff_png);
 		type.set ("img/In-Game/SoundOff.png", AssetType.IMAGE);
+		
+		className.set ("img/In-Game/x2PU.png", __ASSET__img_in_game_x2pu_png);
+		type.set ("img/In-Game/x2PU.png", AssetType.IMAGE);
 		
 		className.set ("img/Menu/CreditsButton.png", __ASSET__img_menu_creditsbutton_png);
 		type.set ("img/Menu/CreditsButton.png", AssetType.IMAGE);
@@ -1337,6 +1357,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep @:bind #if display private #end class __ASSET__img_in_game_enemy3_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_in_game_explodingenemy_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_in_game_gamebackground_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_in_game_invipu_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_in_game_invisenemy_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_in_game_missileenemy_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_in_game_player_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
@@ -1345,6 +1366,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep @:bind #if display private #end class __ASSET__img_in_game_slowmotionblur_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_in_game_sound_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_in_game_soundoff_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_in_game_x2pu_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_menu_creditsbutton_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_menu_creditsbuttonhover_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_menu_creditsscreen_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
@@ -1452,6 +1474,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 
+
+
 @:keep #if display private #end class __ASSET__font_nebula_ttf extends lime.text.Font { public function new () { super (); name = "Nebula Regular"; } } 
 
 
@@ -1480,6 +1504,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:image("assets/img/In-Game/Enemy3.png") #if display private #end class __ASSET__img_in_game_enemy3_png extends lime.graphics.Image {}
 @:image("assets/img/In-Game/ExplodingEnemy.png") #if display private #end class __ASSET__img_in_game_explodingenemy_png extends lime.graphics.Image {}
 @:image("assets/img/In-Game/GameBackground.png") #if display private #end class __ASSET__img_in_game_gamebackground_png extends lime.graphics.Image {}
+@:image("assets/img/In-Game/InviPU.png") #if display private #end class __ASSET__img_in_game_invipu_png extends lime.graphics.Image {}
 @:image("assets/img/In-Game/InvisEnemy.png") #if display private #end class __ASSET__img_in_game_invisenemy_png extends lime.graphics.Image {}
 @:image("assets/img/In-Game/MissileEnemy.png") #if display private #end class __ASSET__img_in_game_missileenemy_png extends lime.graphics.Image {}
 @:image("assets/img/In-Game/Player.png") #if display private #end class __ASSET__img_in_game_player_png extends lime.graphics.Image {}
@@ -1488,6 +1513,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:image("assets/img/In-Game/SlowMotionBlur.png") #if display private #end class __ASSET__img_in_game_slowmotionblur_png extends lime.graphics.Image {}
 @:image("assets/img/In-Game/Sound.png") #if display private #end class __ASSET__img_in_game_sound_png extends lime.graphics.Image {}
 @:image("assets/img/In-Game/SoundOff.png") #if display private #end class __ASSET__img_in_game_soundoff_png extends lime.graphics.Image {}
+@:image("assets/img/In-Game/x2PU.png") #if display private #end class __ASSET__img_in_game_x2pu_png extends lime.graphics.Image {}
 @:image("assets/img/Menu/CreditsButton.png") #if display private #end class __ASSET__img_menu_creditsbutton_png extends lime.graphics.Image {}
 @:image("assets/img/Menu/CreditsButtonHover.png") #if display private #end class __ASSET__img_menu_creditsbuttonhover_png extends lime.graphics.Image {}
 @:image("assets/img/Menu/CreditsScreen.png") #if display private #end class __ASSET__img_menu_creditsscreen_png extends lime.graphics.Image {}

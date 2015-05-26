@@ -102,6 +102,10 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
+		urls.push ("img/In-Game/InviPU.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
 		urls.push ("img/In-Game/InvisEnemy.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
@@ -131,6 +135,10 @@ class ApplicationMain {
 		
 		
 		urls.push ("img/In-Game/SoundOff.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("img/In-Game/x2PU.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
@@ -362,6 +370,7 @@ class ApplicationMain {
 			file: "Time4You",
 			fps: Std.int (60),
 			fullscreen: false,
+			hardware: true,
 			height: Std.int (480),
 			orientation: "",
 			packageName: "kalakuh.time4you.Time4You",

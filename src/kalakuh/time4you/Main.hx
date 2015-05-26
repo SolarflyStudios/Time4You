@@ -35,7 +35,6 @@ class Main extends Sprite
 	private var game : GameManager;
 	private var gOver : GameOver;
 	private var shop : Shop;
-	
 	private static var sound : Sound;
 	private static var channel : SoundChannel;
 	
@@ -61,7 +60,7 @@ class Main extends Sprite
 		addChild(mainMenu);
 		
 		sound = Assets.getSound("sound/DarknessOfForever.mp3");
-		channel = sound.play(0, 9999);
+		channel = sound.play(0, 9999); // ... me iz too lazy to do better system
 		
 		Saving.init();
 		
