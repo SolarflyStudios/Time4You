@@ -134,6 +134,9 @@ class MainMenu extends Screen
 				default:
 			}
 			center(play);
+			center(help);
+			center(credits);
+			center(shop);
 		}
 	}
 	
@@ -229,6 +232,9 @@ class MainMenu extends Screen
 				}
 				
 				center(play);
+				center(help);
+				center(credits);
+				center(shop);
 			}
 		}
 	}
@@ -236,6 +242,7 @@ class MainMenu extends Screen
 	private function center (bmp : Bitmap) {
 		bmp.x = -bmp.width / 2;
 		bmp.y = -bmp.height / 2;
+		if (bmp.bitmapData == Assets.getBitmapData("img/Menu/ShopButtonHover.png")) bmp.x += 3;
 	}
 	
 	override public function onDestroy () : Void {
