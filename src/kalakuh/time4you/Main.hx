@@ -35,8 +35,10 @@ class Main extends Sprite
 	private var game : GameManager;
 	private var gOver : GameOver;
 	private var shop : Shop;
-	private static var sound : Sound;
+	private static var menuSound : Sound;
+	private static var gameSound : Sound;
 	private static var channel : SoundChannel;
+	private static var songID : UInt = 0;
 	
 	#if flash
 		private static var kongregate : KongregateAPI;
@@ -59,8 +61,10 @@ class Main extends Sprite
 		mainMenu = new MainMenu();
 		addChild(mainMenu);
 		
-		sound = Assets.getSound("sound/DarknessOfForever.mp3");
-		channel = sound.play(0, 9999); // ... me iz too lazy to do better system
+		menuSound = Assets.getSound("sound/DarknessOfForever.mp3");
+		gameSound = Assets.getSound("sound/Test-Taker's Nightmare.mp3");
+		channel = menuSound.play(0, 9999); // ... me iz too lazy to do better system
+		songID = 0;
 		
 		Saving.init();
 		
@@ -157,6 +161,11 @@ class Main extends Sprite
 	public function openMenu (menu : EScreen) : Void {
 		switch (menu) {
 			case EScreen.S_MainMenu:
+				if (songID != 0) {
+					channel.stop();
+					channel = menuSound.play(0, 9999);
+					songID = 0;
+				}
 				mainMenu = new MainMenu();
 				mainMenu.alpha = 0;
 				addChild(mainMenu);
@@ -189,6 +198,11 @@ class Main extends Sprite
 	}
 	
 	public function startGame (gamemode : EGameMode) : Void {
+		if (songID != 1) {
+			channel.stop();
+			channel = gameSound.play(0, 9999);
+			songID = 1;
+		}
 		game = new GameManager();
 		addChild(game);
 		game.setTargetAlpha(1);
@@ -241,6 +255,6 @@ class Main extends Sprite
 	}
 	
 	public static function unmute () : Void {
-		channel = sound.play(0, 9999);
+		channel = songID == 0 ? menuSound.play(0, 9999) : gameSound.play(0, 9999);
 	}
 }

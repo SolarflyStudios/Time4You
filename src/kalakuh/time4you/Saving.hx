@@ -73,7 +73,9 @@ class Saving
 				stamina = level;
 				saving.data.stamina = level;
 		}
-		Main.getAPI().upgradeBought(slowmo + spawnRate + stamina);
+		#if flash
+			Main.getAPI().upgradeBought(slowmo + spawnRate + stamina);
+		#end
 		saving.flush();
 	}
 }

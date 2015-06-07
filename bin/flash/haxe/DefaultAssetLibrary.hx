@@ -173,6 +173,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("sound/purchase.mp3", AssetType.MUSIC);
 		className.set ("sound/slowmo.mp3", __ASSET__sound_slowmo_mp3);
 		type.set ("sound/slowmo.mp3", AssetType.MUSIC);
+		className.set ("sound/Test-Taker's Nightmare.mp3", __ASSET__sound_test_taker_s_nightmare_mp3);
+		type.set ("sound/Test-Taker's Nightmare.mp3", AssetType.MUSIC);
 		className.set ("font/license.txt", __ASSET__font_license_txt);
 		type.set ("font/license.txt", AssetType.TEXT);
 		className.set ("font/Nebula.ttf", __ASSET__font_nebula_ttf);
@@ -440,6 +442,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 		path.set (id, id);
 		
 		type.set (id, AssetType.MUSIC);
+		id = "sound/Test-Taker's Nightmare.mp3";
+		path.set (id, id);
+		
+		type.set (id, AssetType.MUSIC);
 		id = "font/license.txt";
 		path.set (id, id);
 		
@@ -464,6 +470,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 		#else
 		
 		#if openfl
+		
 		
 		
 		
@@ -730,6 +737,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		className.set ("sound/slowmo.mp3", __ASSET__sound_slowmo_mp3);
 		type.set ("sound/slowmo.mp3", AssetType.MUSIC);
+		
+		className.set ("sound/Test-Taker's Nightmare.mp3", __ASSET__sound_test_taker_s_nightmare_mp3);
+		type.set ("sound/Test-Taker's Nightmare.mp3", AssetType.MUSIC);
 		
 		className.set ("font/license.txt", __ASSET__font_license_txt);
 		type.set ("font/license.txt", AssetType.TEXT);
@@ -1404,12 +1414,14 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep @:bind #if display private #end class __ASSET__sound_power_mp3 extends flash.media.Sound { }
 @:keep @:bind #if display private #end class __ASSET__sound_purchase_mp3 extends flash.media.Sound { }
 @:keep @:bind #if display private #end class __ASSET__sound_slowmo_mp3 extends flash.media.Sound { }
+@:keep @:bind #if display private #end class __ASSET__sound_test_taker_s_nightmare_mp3 extends flash.media.Sound { }
 @:keep @:bind #if display private #end class __ASSET__font_license_txt extends flash.utils.ByteArray { }
 @:keep @:bind #if display private #end class __ASSET__font_nebula_ttf extends flash.text.Font { }
 @:keep @:bind #if display private #end class __ASSET__font_readme_txt extends flash.utils.ByteArray { }
 
 
 #elseif html5
+
 
 
 
@@ -1551,6 +1563,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:file("assets/sound/power.mp3") #if display private #end class __ASSET__sound_power_mp3 extends lime.utils.ByteArray {}
 @:file("assets/sound/purchase.mp3") #if display private #end class __ASSET__sound_purchase_mp3 extends lime.utils.ByteArray {}
 @:file("assets/sound/slowmo.mp3") #if display private #end class __ASSET__sound_slowmo_mp3 extends lime.utils.ByteArray {}
+@:file("assets/sound/Test-Taker's Nightmare.mp3") #if display private #end class __ASSET__sound_test_taker_s_nightmare_mp3 extends lime.utils.ByteArray {}
 @:file("assets/font/license.txt") #if display private #end class __ASSET__font_license_txt extends lime.utils.ByteArray {}
 @:font("assets/font/Nebula.ttf") #if display private #end class __ASSET__font_nebula_ttf extends lime.text.Font {}
 @:file("assets/font/readme.txt") #if display private #end class __ASSET__font_readme_txt extends lime.utils.ByteArray {}

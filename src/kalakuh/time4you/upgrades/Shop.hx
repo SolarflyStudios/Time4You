@@ -21,6 +21,7 @@ class Shop extends Screen
 	private var stamina : Stamina;
 	private var coinText : TextField;
 	private var font : Font;
+	private var back : Bitmap;
 	
 	public function new() 
 	{
@@ -65,6 +66,10 @@ class Shop extends Screen
 		coinText.selectable = false;
 		
 		addChild(coinText);
+		
+		back = new Bitmap(Assets.getBitmapData("img/Game Mode/Left.png"));
+		addChild(back);
+		back.y = 7;
 	}
 	
 	private function onKeyDown (e : KeyboardEvent) {
@@ -91,6 +96,15 @@ class Shop extends Screen
 			// spawn rate
 		if (mouseX >= 36 && mouseX <= 179 && mouseY >= 320 && mouseY <= 420
 			|| mouseX >= 8 && mouseX <= 636 && mouseY >= 340 && mouseY <= 398) spawnRate.purchase();
+			
+		if (mouseX >= 0 && mouseX <= back.width && mouseY >= back.y && mouseY <= back.y + back.height) {
+			if (super.isVisible()) {
+				var main : Main = cast parent;
+				super.setTargetAlpha(0);
+				main.openMenu(EScreen.S_MainMenu);
+				super.setToBeDestroyed();
+			}
+		}
 			
 		// update the coin displayer
 		coinText.text = "" + Saving.getCoins();

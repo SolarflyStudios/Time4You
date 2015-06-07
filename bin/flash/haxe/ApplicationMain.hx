@@ -290,6 +290,10 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.MUSIC);
 		
 		
+		urls.push ("sound/Test-Taker's Nightmare.mp3");
+		types.push (lime.Assets.AssetType.MUSIC);
+		
+		
 		urls.push ("font/license.txt");
 		types.push (lime.Assets.AssetType.TEXT);
 		
